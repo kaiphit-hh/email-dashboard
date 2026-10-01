@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="color-scheme" content="light dark">
 <title>สรุปอีเมลประจำวัน 30 ก.ย. 2569</title>
 <style>
@@ -12,7 +14,7 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Thai","Sarabun","Tahoma",system-ui,sans-serif;line-height:1.6}
 header{background:linear-gradient(135deg,#1e2f7a,#3b6cf6 60%,#7c5cf6);color:#fff;padding:36px 0 72px}
-.wrap{width:100%;max-width:1800px;margin:0 auto;padding:0 clamp(14px,2.5vw,40px)}
+.wrap{width:100%;max-width:2400px;margin:0 auto;padding:0 clamp(16px,2.5vw,48px)}
 header h1{margin:0 0 4px;font-size:1.75rem;letter-spacing:-.01em}
 header p{margin:0;opacity:.85}
 nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -62,11 +64,21 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;padding:14px}
 .wide .group-wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.wide .group-wrap .group h3{margin-top:0}}
 @media(min-width:1000px){.wide .topics{columns:2;column-gap:40px}.wide .topics li{break-inside:avoid}}
 @media(max-width:800px){header{padding:24px 0 60px}header h1{font-size:1.3rem}section{padding:16px}.kpi .n{font-size:1.9rem}.chart{flex-direction:column;align-items:stretch}#donut{margin:0 auto}}
-@media print{nav{display:none}header{background:#243b8f}}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hdr-act{display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right}
+#refreshBtn{border:0;border-radius:999px;padding:9px 20px;font:inherit;font-weight:700;color:#1e2f7a;background:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+#refreshBtn:hover:not(:disabled){transform:translateY(-1px)}
+#refreshBtn:disabled{opacity:.7;cursor:not-allowed}
+#refreshMsg{font-size:.85rem;opacity:.95;min-height:1.2em;max-width:340px}
+#refreshMsg.err{color:#ffd0d0;font-weight:600}
+.fresh{font-size:.85rem;opacity:.9}
+@media(max-width:800px){.hdr-act{align-items:flex-start;text-align:left}}
+@media print{#refreshBtn,#refreshMsg{display:none}nav{display:none}header{background:#243b8f}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><h1>สรุปอีเมลประจำวัน 30 ก.ย. 2569</h1><p>(ข้อมูลถึงประมาณ 18:50 น.)</p></div></header>
+<header><div class="wrap hdr"><div><h1>สรุปอีเมลประจำวัน 30 ก.ย. 2569</h1><p>(ข้อมูลถึงประมาณ 18:50 น.)</p></div>
+<div class="hdr-act"><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-09-30T18:50:00+07:00">ข้อมูล ณ 30 ก.ย. 2569 18:50 น.</div></div></div></header>
 <nav><div class="wrap"><a href="#direct">ส่งถึงคุณโดยตรง</a><a href="#chart">สัดส่วนอีเมล</a><a href="#pending">ยังไม่ได้ตอบ</a><a href="#info">แจ้งข้อมูลให้ทราบ (ไม่ต้องตอบ)</a><a href="#backlog">ค้างจากช่วง 7 วันที่ผ่านมา</a><a href="#topics">หัวข้อที่ติดต่อมา</a></div></nav>
 <main class="wrap">
 <div class="kpis"><div class="kpi k-blue"><div class="ico">✉</div><div class="n">~101</div><div class="l">อีเมลเข้าทั้งหมด</div><div class="s">ฉบับ (~75 เธรด)</div></div><div class="kpi k-red"><div class="ico">★</div><div class="n">6</div><div class="l">ส่งถึงคุณโดยตรง</div></div><div class="kpi k-purple"><div class="ico">◆</div><div class="n">2</div><div class="l">โปรโมชัน/สแปม</div></div><div class="kpi k-green"><div class="ico">⚙</div><div class="n">~50</div><div class="l">เมลอัตโนมัติ</div><div class="s">Xendit/GB Prime Pay แจ้งรับชำระ 15, e-Tax receipt 9, Booking Report ร้านพาร์ทเนอร์ ~20, SCB/ttb แจ้งเงินเข้า</div></div></div>
@@ -90,6 +102,43 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;padding:14px}
     btns.forEach(function(x){x.classList.remove('active')});b.classList.add('active');
     var f=b.dataset.f;groups.forEach(function(g){g.style.display=(f==='all'||g.dataset.g===f)?'':'none'});
   })});
+})();
+</script>
+<script>
+(function(){
+  var R={"webhook": "", "updatedAt": "2026-09-30T18:50:00+07:00"};
+  var btn=document.getElementById('refreshBtn'),msg=document.getElementById('refreshMsg');
+  if(!btn)return;
+  var KEY='dash_refresh_until',COOL=5*60*1000,timer=null,poll=null;
+  function say(t,err){msg.textContent=t;msg.className=err?'err':'';}
+  function fmt(ms){var s=Math.ceil(ms/1000),m=Math.floor(s/60);s=s%60;return m+':'+(s<10?'0':'')+s;}
+  function getUntil(){try{return parseInt(localStorage.getItem(KEY)||'0',10)||0}catch(x){return 0}}
+  function tick(){
+    var left=getUntil()-Date.now();
+    if(left>0){btn.disabled=true;btn.textContent='อัปเดตตอนนี้ (รอ '+fmt(left)+')';}
+    else{btn.disabled=false;btn.textContent='อัปเดตตอนนี้';if(timer){clearInterval(timer);timer=null;}}
+  }
+  function startCooldown(){try{localStorage.setItem(KEY,String(Date.now()+COOL))}catch(x){} tick(); if(!timer)timer=setInterval(tick,1000);}
+  function startPolling(){
+    if(poll)clearInterval(poll);
+    var t0=Date.now();
+    poll=setInterval(function(){
+      if(Date.now()-t0>8*60*1000){clearInterval(poll);poll=null;return;}
+      fetch('meta.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
+        if(m&&m.updated_at&&m.updated_at!==R.updatedAt){say('มีข้อมูลใหม่ กำลังโหลดหน้าใหม่...');setTimeout(function(){location.reload()},600);}
+      }).catch(function(){});
+    },20000);
+  }
+  btn.addEventListener('click',function(){
+    if(getUntil()>Date.now())return;
+    if(!R.webhook){say('ยังไม่ได้ตั้งค่าการเชื่อมต่อการอัปเดต',true);return;}
+    btn.disabled=true;btn.textContent='กำลังส่งคำสั่ง...';say('');
+    fetch(R.webhook,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:'refresh'})
+    .then(function(){say('ส่งคำสั่งแล้ว ข้อมูลจะอัปเดตใน 3–5 นาที');startCooldown();startPolling();})
+    .catch(function(){say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);btn.disabled=false;btn.textContent='อัปเดตตอนนี้';});
+  });
+  tick(); if(getUntil()>Date.now()&&!timer)timer=setInterval(tick,1000);
+  if(getUntil()>Date.now())startPolling();
 })();
 </script>
 </body>
