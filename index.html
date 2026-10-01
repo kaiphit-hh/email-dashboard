@@ -6,15 +6,15 @@
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
 <title>สรุปอีเมลประจำวัน 1 ต.ค. 2569</title>
-<script>(function(){var l='th';try{l=localStorage.getItem('dash_lang')==='en'?'en':'th'}catch(x){}var h=document.documentElement;h.setAttribute('data-lang',l);h.lang=l;var t=h.getAttribute('data-title-'+l);if(t)document.title=t;})();</script>
+<script>(function(){var th='dark';try{th=localStorage.getItem('dash_theme')==='light'?'light':'dark'}catch(x){}document.documentElement.setAttribute('data-theme',th);var l='th';try{l=localStorage.getItem('dash_lang')==='en'?'en':'th'}catch(x){}var h=document.documentElement;h.setAttribute('data-lang',l);h.lang=l;var t=h.getAttribute('data-title-'+l);if(t)document.title=t;})();</script>
 <style>
-:root{--bg:#f3f5fb;--card:#fff;--ink:#1c2333;--mute:#64708a;--line:#e5e9f2;--soft:#fbfcfe;--red:#e5484d;--orange:#f08a24;--green:#2f9e6b;--gray:#8a93a6;--blue:#3b6cf6;--purple:#8b5cf6;--shadow:0 6px 20px rgba(30,40,80,.08)}
+:root{color-scheme:dark;--bg:#0f1420;--card:#171e2e;--ink:#e8ecf5;--mute:#93a0bb;--line:#26304a;--soft:#1b2337;--red:#e5484d;--orange:#f08a24;--green:#2f9e6b;--gray:#8a93a6;--blue:#3b6cf6;--purple:#8b5cf6;--yellow:#d4a017;--shadow:0 6px 20px rgba(0,0,0,.4);--hov:rgba(255,255,255,.04)}
+html[data-theme="light"]{color-scheme:light;--bg:#f3f5fb;--card:#fff;--ink:#1c2333;--mute:#55627d;--line:#d9dfec;--soft:#f6f8fd;--red:#cf2f36;--orange:#b85a08;--green:#1f7a4c;--gray:#5f6b82;--blue:#2a58db;--purple:#6d35d8;--yellow:#8f6500;--shadow:0 6px 20px rgba(30,40,80,.09);--hov:rgba(30,40,80,.04)}
 .mlinks{display:inline-block;margin-left:6px;font-size:11.5px;white-space:nowrap}
 .mlink{color:var(--blue,#3b6cf6);text-decoration:none;font-weight:600}.mlink:hover{text-decoration:underline}
 .c-sub .mlinks{display:block;margin:2px 0 0}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1420;--card:#171e2e;--ink:#e8ecf5;--mute:#93a0bb;--line:#26304a;--soft:#1b2337;--shadow:0 6px 20px rgba(0,0,0,.4)}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Thai","Sarabun","Tahoma",system-ui,sans-serif;font-size:13.5px;line-height:1.5}/* compact-v3 */
 header{background:linear-gradient(135deg,#1e2f7a,#3b6cf6 60%,#7c5cf6);color:#fff;padding:24px 0}
@@ -79,8 +79,17 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:12px}
 .navbtn{display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
 .navbtn:hover{background:rgba(255,255,255,.28)}
 @media(max-width:800px){.hdr{flex-wrap:wrap;gap:6px}.hdr-act{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:8px;text-align:left}header h1{font-size:20px}header p{font-size:12.5px}}
-@media print{#refreshBtn,#refreshMsg,.langsw{display:none}nav{display:none}header{background:#243b8f}}
+@media print{#refreshBtn,#refreshMsg,.langsw,.themesw{display:none}nav{display:none}header{background:#243b8f}}
 .en{display:none}html[data-lang="en"] .th{display:none}html[data-lang="en"] .en{display:inline}
+.themesw{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:0;flex:none;white-space:nowrap}
+.themesw .trk{position:relative;display:inline-block;width:46px;height:24px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.14);transition:background .15s}
+.themesw .trk i{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;line-height:1}
+.themesw .trk .sun{left:6px}.themesw .trk .moon{right:6px}
+.themesw .knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35);transition:transform .15s}
+html[data-theme="light"] .themesw .knob{transform:translateX(22px)}
+html[data-theme="light"] .themesw .trk{background:rgba(255,255,255,.34)}
+.themesw:focus-visible,.langsw button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.themesw .lt-l,html[data-theme="light"] .themesw .lt-d{display:none}html[data-theme="light"] .themesw .lt-l{display:inline}
 .langsw{display:inline-flex;border:1px solid rgba(255,255,255,.7);border-radius:999px;overflow:hidden;flex:none}
 .langsw button{border:0;background:rgba(255,255,255,.14);color:#fff;font:inherit;font-size:12px;font-weight:700;line-height:1.5;padding:4px 11px;cursor:pointer}
 .langsw button+button{border-left:1px solid rgba(255,255,255,.5)}
@@ -89,7 +98,7 @@ html[data-lang="th"] .langsw [data-l="th"],html[data-lang="en"] .langsw [data-l=
 </head>
 <body>
 <header><div class="wrap hdr"><div><h1><span class="th">สรุปอีเมลประจำวัน 1 ต.ค. 2569</span><span class="en">Daily email summary – 1 Oct 2026</span></h1><p><span class="th">(ข้อมูลถึงประมาณ 12:50 น.)</span><span class="en">(data as of about 12:50)</span></p></div>
-<div class="hdr-act"><div class="langsw" role="group" aria-label="Language / ภาษา"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div><a class="navbtn" href="accounting.html"><span class="th">ทีมบัญชี</span><span class="en">Accounting</span></a><button id="refreshBtn" type="button"><span class="th">อัปเดตตอนนี้</span><span class="en">Update now</span></button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T12:50:00+07:00"><span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></div></div></div></header>
+<div class="hdr-act"><button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false" title="โหมดมืด/สว่าง · Dark / light"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button><div class="langsw" role="group" aria-label="Language / ภาษา"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div><a class="navbtn" href="accounting.html"><span class="th">ทีมบัญชี</span><span class="en">Accounting</span></a><button id="refreshBtn" type="button"><span class="th">อัปเดตตอนนี้</span><span class="en">Update now</span></button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T12:50:00+07:00"><span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></div></div></div></header>
 <nav><div class="wrap"><a href="#direct"><span class="th">ส่งถึงคุณโดยตรง</span><span class="en">Sent directly to you</span></a><a href="#chart"><span class="th">สัดส่วนอีเมล</span><span class="en">Email breakdown</span></a><a href="#pending"><span class="th">ยังไม่ได้ตอบ</span><span class="en">Not replied</span></a><a href="#info"><span class="th">แจ้งข้อมูลให้ทราบ (ไม่ต้องตอบ)</span><span class="en">For your information (no reply needed)</span></a><a href="#backlog"><span class="th">ค้างจากช่วง 7 วันที่ผ่านมา</span><span class="en">Carried over from the past 7 days</span></a><a href="#topics"><span class="th">หัวข้อที่ติดต่อมา</span><span class="en">Topics</span></a></div></nav>
 <main class="wrap">
 <div class="kpis"><div class="kpi k-blue"><div class="ico">✉</div><div class="n">~80</div><div class="l"><span class="th">อีเมลเข้าทั้งหมด</span><span class="en">Total incoming emails</span></div><div class="s">ฉบับ (~65 เธรด · ตั้งแต่เช้าถึงตอนนี้)</div></div><div class="kpi k-red"><div class="ico">★</div><div class="n">5</div><div class="l"><span class="th">ส่งถึงคุณโดยตรง</span><span class="en">Sent directly to you</span></div></div><div class="kpi k-purple"><div class="ico">◆</div><div class="n">1</div><div class="l"><span class="th">โปรโมชัน/สแปม</span><span class="en">Promotions/spam</span></div><div class="s">PEAK อัปเดตฟีเจอร์ (โฟลเดอร์ Spam ตรวจไม่ได้)</div></div><div class="kpi k-green"><div class="ico">⚙</div><div class="n">~55</div><div class="l"><span class="th">เมลอัตโนมัติ</span><span class="en">Automated emails</span></div><div class="s">Booking Report/Royal Orchid ~40+, Xendit/GB Prime Pay หลายรายการ, Omise ก.ย., Aspire statement, DigitalOcean</div></div></div>
@@ -178,6 +187,13 @@ html[data-lang="th"] .langsw [data-l="th"],html[data-lang="en"] .langsw [data-l=
 <script>
 (function(){
   var h=document.documentElement;
+  var tsw=document.getElementById('themeSw');
+  function setTheme(t,save){h.setAttribute('data-theme',t);if(tsw){tsw.setAttribute('aria-checked',t==='light'?'true':'false');
+      tsw.setAttribute('aria-label',h.getAttribute('data-lang')==='en'?(t==='light'?'Light mode (switch to dark)':'Dark mode (switch to light)'):(t==='light'?'โหมดสว่าง (กดเพื่อเปลี่ยนเป็นมืด)':'โหมดมืด (กดเพื่อเปลี่ยนเป็นสว่าง)'));}
+    if(save){try{localStorage.setItem('dash_theme',t)}catch(x){}}}
+  if(tsw){tsw.addEventListener('click',function(){setTheme(h.getAttribute('data-theme')==='light'?'dark':'light',true)});}
+  window.addEventListener('storage',function(ev){if(ev.key==='dash_theme')setTheme(ev.newValue==='light'?'light':'dark',false)});
+  document.addEventListener('langchange',function(){setTheme(h.getAttribute('data-theme')==='light'?'light':'dark',false)});
   function set(l,save){
     h.setAttribute('data-lang',l);h.lang=l;
     var t=h.getAttribute('data-title-'+l);if(t)document.title=t;
