@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th" data-title-th="ทีมบัญชี · Auto Email" data-title-en="Accounting · Auto Email">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="dark light">
+<title>ทีมบัญชี · Auto Email</title>
+<!-- Standalone rules page. Not generated. Do not merge this UI into accounting.html. -->
+<script>(function(){var th='dark';try{th=localStorage.getItem('dash_theme')==='light'?'light':'dark'}catch(x){}document.documentElement.setAttribute('data-theme',th);var l='th';try{l=localStorage.getItem('dash_lang')==='en'?'en':'th'}catch(x){}var h=document.documentElement;h.setAttribute('data-lang',l);h.lang=l;var t=h.getAttribute('data-title-'+l);if(t)document.title=t;})();</script>
+<style>
+:root{color-scheme:dark;--bg:#0f1420;--card:#171e2e;--ink:#e8ecf5;--mute:#93a0bb;--line:#26304a;--soft:#1b2337;--red:#e5484d;--orange:#f08a24;--green:#2f9e6b;--gray:#8a93a6;--blue:#3b6cf6;--purple:#8b5cf6;--yellow:#d4a017;--shadow:0 6px 20px rgba(0,0,0,.4);--hov:rgba(255,255,255,.04);--draft:#0c7a54;--tag-bg:rgba(139,92,246,.22);--tag-ink:#ddd6fe;--note-bg:#3a3114;--note-ink:#f6e7a8;--banner-bg:#3a2616;--banner-ink:#fdba74;--banner-line:#7c4a1e}
+html[data-theme="light"]{color-scheme:light;--bg:#f4f6fa;--card:#fff;--ink:#1c2333;--mute:#55627d;--line:#e5e7eb;--soft:#fafbff;--red:#dc2626;--orange:#b85a08;--green:#1f7a4c;--gray:#5f6b82;--blue:#2563eb;--purple:#6d28d9;--yellow:#a16207;--shadow:0 1px 3px rgba(0,0,0,.08);--hov:rgba(30,40,80,.04);--draft:#0c7a54;--tag-bg:#ede9fe;--tag-ink:#6d28d9;--note-bg:#fef9c3;--note-ink:#713f12;--banner-bg:#fff7ed;--banner-ink:#9a3412;--banner-line:#fed7aa}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Thai","Sarabun","Tahoma",system-ui,sans-serif;font-size:14px;line-height:1.5}
+body.modal-open{overflow:hidden}
+.en{display:none}
+html[data-lang="en"] .th{display:none}
+html[data-lang="en"] .en{display:inline}
+header{background:linear-gradient(135deg,#1e2f7a,#3b6cf6 60%,#7c5cf6);color:#fff;padding:22px 0}
+.wrap{width:100%;max-width:1040px;margin:0 auto;padding:0 16px}
+header h1{margin:0 0 4px;font-size:clamp(20px,2vw,26px);line-height:1.3;letter-spacing:-.01em}
+header p{margin:0;opacity:.9;font-size:13px}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr>div:first-child{min-width:0}
+.hdr-act{display:flex;flex-direction:row-reverse;align-items:center;gap:12px;flex:none}
+.navbtn{display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
+.navbtn:hover{background:rgba(255,255,255,.28)}
+.themesw{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:0;white-space:nowrap}
+.themesw .trk{position:relative;display:inline-block;width:46px;height:24px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.14)}
+.themesw .trk i{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;line-height:1}
+.themesw .trk .sun{left:6px}.themesw .trk .moon{right:6px}
+.themesw .knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35);transition:transform .15s}
+html[data-theme="light"] .themesw .knob{transform:translateX(22px)}
+.themesw .lt-l,html[data-theme="light"] .themesw .lt-d{display:none}
+html[data-theme="light"] .themesw .lt-l{display:inline}
+.langsw{display:inline-flex;border:1px solid rgba(255,255,255,.7);border-radius:999px;overflow:hidden}
+.langsw button{border:0;background:rgba(255,255,255,.14);color:#fff;font:inherit;font-size:12px;font-weight:700;padding:4px 11px;cursor:pointer}
+.langsw button+button{border-left:1px solid rgba(255,255,255,.5)}
+html[data-lang="th"] .langsw [data-l="th"],html[data-lang="en"] .langsw [data-l="en"]{background:#fff;color:#1e2f7a}
+.themesw:focus-visible,.langsw button:focus-visible,.btn:focus-visible,.chip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+header .themesw:focus-visible,header .langsw button:focus-visible{outline-color:#fff}
+main{padding:16px 0 48px}
+.top{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+section{background:var(--card);border-radius:12px;padding:16px 18px 18px;box-shadow:var(--shadow);margin-top:16px}
+h2{margin:0;font-size:17px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h2::before{content:"";width:5px;height:1.05em;border-radius:3px;background:linear-gradient(var(--blue),var(--purple));flex:none}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.hint{color:var(--mute);font-size:12.5px;margin:6px 0 0}
+.banner{background:var(--banner-bg);color:var(--banner-ink);border:1px solid var(--banner-line);border-radius:8px;padding:8px 12px;font-size:12.5px;margin:12px 0}
+.pill{font-size:11px;font-weight:700;border-radius:99px;padding:2px 8px;background:var(--note-bg);color:var(--note-ink)}
+.count{font-size:11px;font-weight:700;background:var(--bg);color:var(--mute);border-radius:999px;padding:1px 9px}
+.tblwrap{overflow-x:auto}
+table.demo{width:100%;border-collapse:collapse;font-size:13.5px}
+table.demo th{text-align:left;font-size:12px;color:var(--mute);font-weight:700;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.demo td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.demo tr:hover td{background:var(--hov)}
+.sender{font-weight:700}
+.subline{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.tag{display:inline-block;background:var(--tag-bg);color:var(--tag-ink);border-radius:99px;padding:2px 8px;font-size:12px;font-weight:700;white-space:nowrap}
+.meta{color:var(--mute);font-size:12px;margin-top:3px}
+.badge{display:inline-block;padding:1px 8px;border-radius:999px;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
+.b-red{background:var(--red)}
+.b-yellow{background:var(--yellow)}
+.country{white-space:nowrap;font-weight:700}
+.actions{white-space:nowrap}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;line-height:1.4}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.current{background:var(--blue);color:#fff;border-color:var(--blue);cursor:default}
+.btn.draft{background:var(--draft);color:#fff;border-color:var(--draft);padding:4px 10px;font-size:13px}
+.btn.draft:hover{filter:brightness(1.08)}
+.btn.open{padding:4px 10px;font-size:13px}
+.btn.danger{color:var(--red)}
+.flag{display:inline-block;font-size:11px;font-weight:800;background:#e0f2fe;color:#0369a1;border-radius:6px;padding:0 6px;margin-left:4px;letter-spacing:.02em}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:8px;font-size:12.5px;color:var(--mute)}
+.legend b{color:var(--ink);font-weight:700}
+.legend button.x{border:0;background:transparent;color:var(--mute);cursor:pointer;font:inherit;font-weight:700;padding:0 2px}
+.legend button.x:hover{color:var(--red)}
+.rule{border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;background:var(--soft)}
+.rule.is-off{opacity:.72;border-style:dashed}
+.rule-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.rule-id{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.rule-id b{white-space:nowrap}
+.rule-actions{display:flex;gap:6px;flex:none}
+.name{width:min(280px,100%);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 10px;font:inherit;font-size:14px}
+label.fld,.fld{display:block;font-weight:700;margin:12px 0 2px}
+textarea{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;resize:vertical;min-height:64px}
+.opts{display:flex;gap:22px;margin-top:4px;flex-wrap:wrap}
+.opts>div{flex:1;min-width:240px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.chip.soon{background:var(--bg);color:#9ca3af;border-style:dashed;cursor:default}
+.chip.add{background:transparent;color:var(--mute);border-style:dashed;cursor:pointer}
+.chip.add:hover{color:var(--ink);border-color:var(--blue)}
+.empty{color:var(--mute);margin:14px 0}
+.savebar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.note{background:var(--note-bg);color:var(--note-ink);border-radius:8px;padding:8px 12px;font-size:12.5px;flex:1;min-width:220px}
+.save-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#saveState{font-size:12.5px;min-height:1.2em}
+#saveState.ok{color:var(--green);font-weight:700}
+#saveState.warn{color:var(--orange);font-weight:700}
+#saveState.err{color:var(--red);font-weight:700}
+.disc{font-size:12px;color:var(--mute);margin:10px 0 0}
+footer{text-align:center;color:var(--mute);font-size:12px;padding:8px 16px 28px}
+footer a{color:inherit}
+.modal{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal[hidden]{display:none}
+.modal-back{position:absolute;inset:0;background:rgba(15,20,32,.55)}
+.modal-card{position:relative;background:var(--card);color:var(--ink);border-radius:14px;width:min(560px,100%);max-height:min(86vh,760px);overflow:auto;padding:18px 18px 14px;box-shadow:0 16px 50px rgba(0,0,0,.35)}
+.modal-card h3{margin:0 0 10px;font-size:17px}
+.lead{background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--draft);border-radius:10px;padding:10px 12px;margin:0 0 12px}
+.lead .en-line{font-weight:700}
+.lead .th-line{margin:4px 0 0;font-size:13px}
+dl.kv{display:grid;grid-template-columns:132px 1fr;gap:4px 10px;margin:0 0 12px;font-size:13px}
+dl.kv dt{color:var(--mute);margin:0}
+dl.kv dd{margin:0}
+pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 0;font:inherit;font-size:13.5px}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap}
+.form-grid{display:grid;gap:8px}
+.form-grid label{font-weight:700;font-size:13px;display:grid;gap:4px}
+.form-grid input{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 10px;font:inherit;font-size:16px}
+.form-err{color:var(--red);font-size:12.5px;font-weight:700;margin:4px 0 0;min-height:1.2em}
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(8px);background:#111827;color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;max-width:min(92vw,460px);text-align:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:800px){
+  header{padding:16px 0}
+  .hdr{flex-wrap:wrap}
+  .hdr-act{flex-direction:row;flex-wrap:wrap;justify-content:flex-start}
+  section{padding:14px}
+  .opts>div{min-width:0;flex-basis:100%}
+  .savebar{flex-direction:column;align-items:stretch}
+  .save-actions{display:grid;grid-template-columns:1fr 1fr}
+  #saveBtn{grid-column:1/-1}
+  table.demo thead{display:none}
+  table.demo,.tblwrap{overflow:visible}
+  table.demo tbody,table.demo tr,table.demo td{display:block;width:100%}
+  table.demo tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:6px 10px 8px}
+  table.demo td{border:0;padding:5px 0;display:grid;grid-template-columns:88px 1fr;gap:6px;align-items:start}
+  table.demo tr:hover td{background:transparent}
+  table.demo td::before{content:attr(data-label);color:var(--mute);font-size:11px;font-weight:700;padding-top:2px}
+  .actions{white-space:normal}
+  dl.kv{grid-template-columns:1fr}
+  .name{width:100%}
+}
+@media(max-width:420px){
+  .save-actions{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hdr">
+    <div>
+      <h1><span class="th">ทีมบัญชี · Auto Email</span><span class="en">Accounting · Auto Email</span></h1>
+      <p><span class="th">กฎดราฟตอบกลับสำหรับ finance@ / finance.sg@ / finance.my@ · ยังไม่เชื่อมต่อ Gmail</span><span class="en">Reply-draft rules for finance@ / finance.sg@ / finance.my@ · Gmail is not connected</span></p>
+    </div>
+    <div class="hdr-act">
+      <button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button>
+      <div class="langsw" role="group" aria-label="Language"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div>
+      <a class="navbtn" href="accounting.html"><span class="th">← หน้ารายการอีเมล</span><span class="en">← Email list</span></a>
+      <a class="navbtn" href="index.html"><span class="th">แดชบอร์ดหลัก</span><span class="en">Main dashboard</span></a>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="top">
+    <a class="btn" href="accounting.html"><span class="th">หน้ารายการอีเมล</span><span class="en">Email list</span></a>
+    <span class="btn current" aria-current="page">⚙ Auto Email</span>
+  </div>
+
+  <section aria-labelledby="sampleTitle">
+    <div class="row">
+      <h2 id="sampleTitle"><span class="th">อีเมลตัวอย่าง</span><span class="en">Sample emails</span> <span class="count" id="matchCount"></span> <span class="pill"><span class="th">ข้อมูลตัวอย่าง</span><span class="en">Sample data</span></span></h2>
+    </div>
+    <p class="banner"><span class="th">ตารางนี้เป็นข้อมูลสมมติสำหรับลองกฎ (เช่น ใบกำกับภาษีของ Centara, การวางบิล, และยอดค้างของสิงคโปร์) ไม่ได้ดึงจาก Gmail และกดปุ่มแล้วจะไม่ส่งอีเมล</span><span class="en">This table is fake data for trying the rules (a Centara e-Tax question, a billing question, and a Singapore overdue-payment note). It is not loaded from Gmail, and nothing here sends mail.</span></p>
+    <div class="tblwrap">
+      <table class="demo">
+        <thead>
+          <tr>
+            <th><span class="th">สถานะ</span><span class="en">Status</span></th>
+            <th><span class="th">ผู้ส่ง</span><span class="en">Sender</span></th>
+            <th><span class="th">หัวข้อ</span><span class="en">Subject</span></th>
+            <th><span class="th">ประเทศ</span><span class="en">Country</span></th>
+            <th><span class="th">รอ</span><span class="en">Waiting</span></th>
+            <th><span class="th">สรุปสั้น ๆ</span><span class="en">Summary</span></th>
+            <th><span class="th">การดำเนินการ</span><span class="en">Action</span></th>
+          </tr>
+        </thead>
+        <tbody id="sampleBody"></tbody>
+      </table>
+    </div>
+    <p class="disc"><span class="th">จับคู่แบบตรงตัวอักษร: หัวข้อหรือเนื้อหามี keyword ทั้งคำตามที่พิมพ์ (ไม่สนใจช่องว่างหัวท้ายบรรทัด, ตัวพิมพ์เล็กใหญ่ต้องตรง) และประเทศของแถวนั้นถูกเลือกไว้ในกฎที่เปิดอยู่ ถ้าตรงหลายกฎ ใช้กฎบนก่อน แถวมาเลเซียมีคำว่า «ขอใบกำกับภาษี» แต่กฎใบกำกับภาษีเลือกเฉพาะไทย จึงไม่ขึ้นปุ่ม จนกว่าจะเลือกมาเลเซียในกฎนั้น</span><span class="en">Matching is exact: the subject or body must contain a keyword as written (line edges are trimmed; letter case matters) and that row’s country must be selected on an enabled rule. If several rules match, the upper one wins. The Malaysia row contains “ขอใบกำกับภาษี”, but the tax-invoice rule selects only Thailand, so it stays unmatched until Malaysia is selected on that rule.</span></p>
+  </section>
+
+  <section aria-labelledby="rulesTitle">
+    <div class="row">
+      <h2 id="rulesTitle">⚙ Auto Email · <span class="th">กฎการดราฟอีเมลอัตโนมัติ</span><span class="en">automatic draft rules</span></h2>
+      <button type="button" class="btn primary" id="addRule"><span class="th">+ เพิ่มกฎ</span><span class="en">+ Add rule</span></button>
+    </div>
+    <p class="hint"><span class="th">เมื่ออีเมลที่เข้ามามี keyword ตรงเป๊ะ และประเทศตรงกับที่เลือก ระบบจะแสดงปุ่ม «ดราฟอีเมล» ข้างแถวนั้น</span><span class="en">When an incoming email contains a keyword exactly, and its country is selected, a Draft email button is shown on that row.</span></p>
+    <div class="legend" id="countryLegend"></div>
+    <div id="rules"></div>
+    <div class="savebar">
+      <div class="note"><span class="th">💡 เมื่อพนักงานกด «ดราฟอีเมล» ระบบจะสร้าง draft ใน Gmail ของคนที่กดเท่านั้น และไม่ส่งออกเอง หน้านี้เป็นตัวอย่าง จึงยังไม่เชื่อมต่อ Gmail</span><span class="en">💡 Clicking Draft email would create a draft only in the clicker’s own Gmail and would not send it. This page only previews that step and is not connected to Gmail.</span></div>
+      <div class="save-actions">
+        <button type="button" class="btn" id="importBtn"><span class="th">นำเข้า JSON</span><span class="en">Import JSON</span></button>
+        <button type="button" class="btn" id="exportBtn"><span class="th">ส่งออก JSON</span><span class="en">Export JSON</span></button>
+        <button type="button" class="btn primary" id="saveBtn"><span class="th">บันทึกกฎ</span><span class="en">Save rules</span></button>
+      </div>
+    </div>
+    <p id="saveState" role="status"></p>
+  </section>
+</main>
+<footer>
+  <a href="accounting.html"><span class="th">← หน้ารายการอีเมล</span><span class="en">← Email list</span></a>
+  · <span class="th">ทีมบัญชี</span><span class="en">Accounting</span>
+  · <span class="th">เก็บกฎในเบราว์เซอร์นี้เท่านั้น</span><span class="en">Rules stay in this browser only</span>
+</footer>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-back" id="modalBack"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+
+<script>
+(function () {
+  var h = document.documentElement;
+  var tsw = document.getElementById("themeSw");
+  function setTheme(t, save) {
+    h.setAttribute("data-theme", t);
+    if (tsw) {
+      tsw.setAttribute("aria-checked", t === "light" ? "true" : "false");
+      tsw.setAttribute("aria-label", h.getAttribute("data-lang") === "en"
+        ? (t === "light" ? "Light mode (switch to dark)" : "Dark mode (switch to light)")
+        : (t === "light" ? "โหมดสว่าง (กดเพื่อเปลี่ยนเป็นมืด)" : "โหมดมืด (กดเพื่อเปลี่ยนเป็นสว่าง)"));
+    }
+    if (save) { try { localStorage.setItem("dash_theme", t); } catch (x) {} }
+  }
+  if (tsw) tsw.addEventListener("click", function () { setTheme(h.getAttribute("data-theme") === "light" ? "dark" : "light", true); });
+  window.addEventListener("storage", function (ev) { if (ev.key === "dash_theme") setTheme(ev.newValue === "light" ? "light" : "dark", false); });
+  function setLang(l, save) {
+    h.setAttribute("data-lang", l);
+    h.lang = l;
+    var t = h.getAttribute("data-title-" + l);
+    if (t) document.title = t;
+    if (save) { try { localStorage.setItem("dash_lang", l); } catch (x) {} }
+    document.dispatchEvent(new Event("langchange"));
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".langsw button"), function (b) {
+    b.addEventListener("click", function () { setLang(b.getAttribute("data-l"), true); });
+  });
+  window.addEventListener("storage", function (ev) { if (ev.key === "dash_lang") setLang(ev.newValue === "en" ? "en" : "th", false); });
+  setTheme(h.getAttribute("data-theme") === "light" ? "light" : "dark", false);
+  setLang(h.getAttribute("data-lang") === "en" ? "en" : "th", false);
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* Country → finance mailbox group. Add a row here, or use “เพิ่มประเทศ” on the page.
+     Vietnam stays non-selectable until this flag changes. */
+  var DEFAULT_COUNTRIES = [
+    { code: "TH", flag: "🇹🇭", nameTh: "ไทย", nameEn: "Thailand", mailbox: "finance@", selectable: true, comingSoon: false, custom: false },
+    { code: "SG", flag: "🇸🇬", nameTh: "สิงคโปร์", nameEn: "Singapore", mailbox: "finance.sg@", selectable: true, comingSoon: false, custom: false },
+    { code: "MY", flag: "🇲🇾", nameTh: "มาเลเซีย", nameEn: "Malaysia", mailbox: "finance.my@", selectable: true, comingSoon: false, custom: false },
+    { code: "VN", flag: "🇻🇳", nameTh: "เวียดนาม", nameEn: "Vietnam", mailbox: "", selectable: false, comingSoon: true, custom: false }
+  ];
+
+  /* Fake inbox. Matching reads subject + body only. */
+  var SAMPLE_EMAILS = [
+    {
+      id: "centara",
+      sender: "Centara Watergate Pavilion",
+      subject: "Re: Your Invoice (e-Tax) from Hungry Hub",
+      body: "เรียน ทีมบัญชี รบกวนขอใบกำกับภาษี สำหรับการชำระตามเอกสารแนบ และขอใบกำกับภาษี e-Tax อีกครั้งค่ะ",
+      summaryTh: "สอบถามใบกำกับภาษีสำหรับการชำระ",
+      summaryEn: "Asking for a tax invoice for the payment",
+      country: "TH",
+      waitTh: "รอ 4 ชม.",
+      waitEn: "waiting 4 h",
+      waitLevel: "soon"
+    },
+    {
+      id: "pocketrocket",
+      sender: "Pocketrocket (Fatboy Izakaya)",
+      subject: "ตามบิล Invoice เดือน ก.ย. 2569",
+      body: "สอบถามข้อมูลการวางบิลของร้านประจำเดือนกันยายน 2569 ค่ะ",
+      summaryTh: "สอบถามข้อมูลการวางบิล",
+      summaryEn: "Asking how billing works",
+      country: "TH",
+      waitTh: "รอ 43 ชม.",
+      waitEn: "waiting 43 h",
+      waitLevel: "late"
+    },
+    {
+      id: "butcher",
+      sender: "The Butcher's Wife (SG)",
+      subject: "Re: Overdue Payment & Payment Terms",
+      body: "Please help us reconcile the overdue invoices. สอบถามยอดค้างค่ะ",
+      summaryTh: "ส่งไฟล์กระทบยอด",
+      summaryEn: "Sending a reconciliation file",
+      country: "SG",
+      waitTh: "รอ 41 ชม.",
+      waitEn: "waiting 41 h",
+      waitLevel: "late"
+    },
+    {
+      id: "novotel",
+      sender: "Novotel Sukhumvit 20",
+      subject: "Follow up Payment: Invoice on Aug",
+      body: "Kindly follow up the August invoice. We have not received the payment advice.",
+      summaryTh: "ทวงถามยอดค้างชำระ",
+      summaryEn: "Following up on an unpaid balance",
+      country: "TH",
+      waitTh: "รอ 6 วัน",
+      waitEn: "waiting 6 days",
+      waitLevel: "late"
+    },
+    {
+      id: "renaissance",
+      sender: "Renaissance Kuala Lumpur",
+      subject: "Request tax invoice",
+      body: "ขอใบกำกับภาษี สำหรับการชำระเงินที่มาเลเซียค่ะ",
+      summaryTh: "ขอใบกำกับภาษี แต่ประเทศยังไม่ถูกเลือกในกฎ",
+      summaryEn: "Tax-invoice wording, country not selected on the rule",
+      country: "MY",
+      waitTh: "รอ 5 ชม.",
+      waitEn: "waiting 5 h",
+      waitLevel: "soon"
+    }
+  ];
+
+  function seedRules() {
+    return [
+      {
+        id: "seed-etax",
+        name: "ขอใบกำกับภาษี",
+        enabled: true,
+        keywords: "ขอใบกำกับภาษี\nใบกำกับภาษี e-Tax",
+        template: "เรียน คุณลูกค้า ทางเราได้ส่งใบกำกับภาษี (e-Tax) ไปยังอีเมลที่ลงทะเบียนไว้แล้ว หากยังไม่ได้รับ รบกวนแจ้งเลขที่ใบแจ้งหนี้ ทางเราจะส่งให้อีกครั้งค่ะ",
+        countries: ["TH"],
+        language: "th"
+      },
+      {
+        id: "seed-billing",
+        name: "ขอข้อมูลวางบิล",
+        enabled: true,
+        keywords: "ข้อมูลการวางบิล",
+        template: "เรียน คุณลูกค้า รอบวางบิลของเราคือสิ้นเดือน และชำระคอมมิชชันภายในวันที่ 15 ของเดือนถัดไปค่ะ",
+        countries: ["TH", "SG", "MY"],
+        language: "en"
+      },
+      {
+        id: "seed-overdue",
+        name: "สอบถามยอดค้าง",
+        enabled: true,
+        keywords: "สอบถามยอดค้าง\nOverdue Payment",
+        template: "Dear customer, thank you for the note about the overdue balance. We will review the statement and send the reconciliation shortly.",
+        countries: ["SG"],
+        language: "en"
+      }
+    ];
+  }
+
+  /* ============================================================
+     ADAPTERS
+     The page talks only to StoragePort and DraftPort.
+     Later: point StoragePort at a Google Sheet via Apps Script,
+     and point DraftPort at a script that creates a draft in the
+     signed-in clicker's Gmail. Do not send mail from either port.
+     ============================================================ */
+
+  var LocalStorageAdapter = {
+    KEY: "hh_auto_email_v1",
+    load: function () {
+      return new Promise(function (resolve, reject) {
+        var raw;
+        try { raw = localStorage.getItem(LocalStorageAdapter.KEY); }
+        catch (e) { reject(e); return; }
+        if (!raw) { resolve(null); return; }
+        try { resolve(JSON.parse(raw)); }
+        catch (e) { reject(new Error("parse")); }
+      });
+    },
+    save: function (doc) {
+      return new Promise(function (resolve, reject) {
+        try {
+          localStorage.setItem(LocalStorageAdapter.KEY, JSON.stringify(doc));
+          resolve({ ok: true, where: "localStorage" });
+        } catch (e) { reject(e); }
+      });
+    }
+  };
+
+  var StoragePort = {
+    load: function () { return LocalStorageAdapter.load(); },
+    save: function (doc) { return LocalStorageAdapter.save(doc); }
+  };
+
+  /* Preview only. Never opens a network call and never sends. */
+  var PreviewDraftAdapter = {
+    createDraft: function (request) {
+      return Promise.resolve({
+        ok: true,
+        sent: false,
+        mode: "preview",
+        notice: "Would create a Gmail draft in the signed-in clicker's account, not sent.",
+        draft: {
+          subject: request.subject,
+          body: request.template,
+          language: request.language,
+          mailbox: request.mailbox
+        }
+      });
+    }
+  };
+
+  var DraftPort = {
+    createDraft: function (request) { return PreviewDraftAdapter.createDraft(request); }
+  };
+
+  var state = { countries: [], rules: [], dirty: false, source: "seed" };
+  var modalReturn = null;
+  var toastTimer = 0;
+
+  function tx(th, en) {
+    return document.documentElement.getAttribute("data-lang") === "en" ? en : th;
+  }
+  function uid() {
+    return "r" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36);
+  }
+  function countryName(c) {
+    return document.documentElement.getAttribute("data-lang") === "en" ? c.nameEn : c.nameTh;
+  }
+  function findCountry(code) {
+    for (var i = 0; i < state.countries.length; i++) if (state.countries[i].code === code) return state.countries[i];
+    return null;
+  }
+  function findRule(id) {
+    for (var i = 0; i < state.rules.length; i++) if (state.rules[i].id === id) return state.rules[i];
+    return null;
+  }
+  function splitKeywords(text) {
+    return String(text || "").split(/\r?\n/).map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+  }
+  function ruleLabel(rule, index) {
+    var name = String(rule.name || "").trim();
+    if (name) return name;
+    var keys = splitKeywords(rule.keywords);
+    if (keys.length) return keys[0];
+    return tx("กฎที่ ", "Rule ") + (index + 1);
+  }
+  function hasThai(text) { return /[\u0E00-\u0E7F]/.test(text || ""); }
+  function resolveLanguage(rule, email) {
+    if (rule.language === "en") return "EN";
+    if (rule.language === "th") return "TH";
+    var hay = (email.subject || "") + "\n" + (email.body || "");
+    return hasThai(hay) ? "TH" : "EN";
+  }
+  function languagePhrase(code, mode) {
+    if (mode === "match") {
+      return code === "TH"
+        ? tx("ตามภาษาอีเมลที่ถามมา · ไทย", "Match incoming email · Thai")
+        : tx("ตามภาษาอีเมลที่ถามมา · English", "Match incoming email · English");
+    }
+    return code === "TH" ? tx("ไทย", "Thai") : "English";
+  }
+
+  /* Literal substring. Not a regex, not case-folded. Country must be selected. */
+  function keywordHit(rule, email) {
+    if (!rule || !rule.enabled) return "";
+    if (!email || rule.countries.indexOf(email.country) < 0) return "";
+    var hay = (email.subject || "") + "\n" + (email.body || "");
+    var keys = splitKeywords(rule.keywords);
+    for (var i = 0; i < keys.length; i++) {
+      if (hay.indexOf(keys[i]) !== -1) return keys[i];
+    }
+    return "";
+  }
+  function firstMatch(email) {
+    for (var i = 0; i < state.rules.length; i++) {
+      var hit = keywordHit(state.rules[i], email);
+      if (hit) return { rule: state.rules[i], index: i, keyword: hit };
+    }
+    return null;
+  }
+  function draftSubject(subject) {
+    var s = subject || "";
+    if (/^re\s*:/i.test(s)) return s;
+    return "Re: " + s;
+  }
+
+  function sanitizeCountry(c) {
+    if (!c || typeof c !== "object") return null;
+    var code = String(c.code || "").trim().toUpperCase();
+    if (!/^[A-Z]{2,6}$/.test(code)) return null;
+    var flag = String(c.flag || "").trim();
+    if (!flag || flag.length > 16) flag = "🏳️";
+    return {
+      code: code,
+      flag: flag,
+      nameTh: String(c.nameTh || code).trim().slice(0, 40) || code,
+      nameEn: String(c.nameEn || code).trim().slice(0, 40) || code,
+      mailbox: String(c.mailbox || "").trim().slice(0, 80),
+      selectable: !(c.comingSoon) && c.selectable !== false,
+      comingSoon: !!c.comingSoon,
+      custom: !!c.custom
+    };
+  }
+  function mergeCountries(saved) {
+    var byCode = {};
+    (saved || []).forEach(function (c) {
+      var clean = sanitizeCountry(c);
+      if (clean) byCode[clean.code] = clean;
+    });
+    var out = DEFAULT_COUNTRIES.map(function (base) {
+      var over = byCode[base.code];
+      var merged = {
+        code: base.code,
+        flag: base.flag,
+        nameTh: base.nameTh,
+        nameEn: base.nameEn,
+        mailbox: base.mailbox,
+        selectable: base.selectable && !base.comingSoon,
+        comingSoon: !!base.comingSoon,
+        custom: false
+      };
+      if (over && !base.comingSoon) {
+        if (over.nameTh) merged.nameTh = over.nameTh;
+        if (over.nameEn) merged.nameEn = over.nameEn;
+        if (over.mailbox) merged.mailbox = over.mailbox;
+        if (over.flag) merged.flag = over.flag;
+      }
+      delete byCode[base.code];
+      return merged;
+    });
+    Object.keys(byCode).forEach(function (code) {
+      var c = byCode[code];
+      if (c.comingSoon) return;
+      c.custom = true;
+      c.comingSoon = false;
+      c.selectable = true;
+      out.push(c);
+    });
+    return out;
+  }
+  function normalizeRule(r) {
+    if (!r || typeof r !== "object") return null;
+    var lang = r.language === "en" || r.language === "match" ? r.language : "th";
+    var seen = {};
+    var countries = [];
+    (Array.isArray(r.countries) ? r.countries : []).forEach(function (c) {
+      var code = String(c || "").trim().toUpperCase();
+      if (!/^[A-Z]{2,6}$/.test(code) || seen[code]) return;
+      seen[code] = true;
+      countries.push(code);
+    });
+    var id = (typeof r.id === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(r.id)) ? r.id : uid();
+    return {
+      id: id,
+      name: String(r.name || "").slice(0, 80),
+      enabled: r.enabled !== false,
+      keywords: String(r.keywords == null ? "" : r.keywords).slice(0, 4000),
+      template: String(r.template == null ? "" : r.template).slice(0, 8000),
+      countries: countries,
+      language: lang
+    };
+  }
+  function scrubRuleCountries(rule) {
+    var ok = {};
+    state.countries.forEach(function (c) { if (c.selectable && !c.comingSoon) ok[c.code] = true; });
+    rule.countries = rule.countries.filter(function (code) { return !!ok[code]; });
+  }
+  function snapshot(kind) {
+    var doc = {
+      version: 1,
+      source: "auto-email.html",
+      countries: state.countries.map(function (c) {
+        return { code: c.code, flag: c.flag, nameTh: c.nameTh, nameEn: c.nameEn, mailbox: c.mailbox, selectable: c.selectable, comingSoon: c.comingSoon, custom: c.custom };
+      }),
+      rules: state.rules.map(function (r) {
+        return { id: r.id, name: r.name, enabled: !!r.enabled, keywords: r.keywords, template: r.template, countries: r.countries.slice(), language: r.language };
+      })
+    };
+    doc[kind === "export" ? "exportedAt" : "savedAt"] = new Date().toISOString();
+    return doc;
+  }
+
+  function el(tag, attrs) {
+    var node = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "class") node.className = attrs[k];
+      else if (k === "text") node.textContent = attrs[k];
+      else node.setAttribute(k, attrs[k]);
+    });
+    for (var i = 2; i < arguments.length; i++) if (arguments[i]) node.appendChild(arguments[i]);
+    return node;
+  }
+  function btn(className, text, attrs) {
+    var b = el("button", Object.assign({ type: "button", class: className, text: text }, attrs || {}));
+    return b;
+  }
+
+  function renderCountryLegend() {
+    var root = document.getElementById("countryLegend");
+    root.innerHTML = "";
+    var lead = el("span", { text: tx("กล่องเมล: ", "Mailbox group: ") });
+    root.appendChild(lead);
+    state.countries.forEach(function (c) {
+      var piece = el("span");
+      var label = c.flag + " " + countryName(c);
+      if (c.comingSoon) label += tx(" (เร็ว ๆ นี้)", " (coming soon)");
+      else if (c.mailbox) label += " " + c.mailbox;
+      piece.appendChild(document.createTextNode(label));
+      if (c.custom) {
+        var x = btn("x", "×", { "data-act": "remove-country", "data-code": c.code, "aria-label": tx("ลบประเทศ ", "Remove country ") + c.code });
+        piece.appendChild(x);
+      }
+      root.appendChild(piece);
+    });
+  }
+
+  function renderRules() {
+    var root = document.getElementById("rules");
+    root.innerHTML = "";
+    if (!state.rules.length) {
+      root.appendChild(el("p", { class: "empty", text: tx("ยังไม่มีกฎ — กด «เพิ่มกฎ» เพื่อเริ่ม", "No rules yet — press “Add rule” to start.") }));
+      return;
+    }
+    state.rules.forEach(function (rule, index) { root.appendChild(ruleCard(rule, index)); });
+  }
+  function ruleCard(rule, index) {
+    var card = el("article", { class: "rule" + (rule.enabled ? "" : " is-off"), "data-id": rule.id });
+    var top = el("div", { class: "rule-top" });
+    var idBox = el("div", { class: "rule-id" });
+    idBox.appendChild(el("b", { text: tx("กฎที่ ", "Rule ") + (index + 1) }));
+    var name = el("input", { class: "name", "data-field": "name", maxlength: "80", "aria-label": tx("ชื่อกฎ", "Rule name"), placeholder: tx("ชื่อกฎ", "Rule name") });
+    name.value = rule.name;
+    idBox.appendChild(name);
+    top.appendChild(idBox);
+    var actions = el("div", { class: "rule-actions" });
+    actions.appendChild(btn("btn", rule.enabled ? tx("ปิดใช้งาน", "Disable") : tx("เปิดใช้งาน", "Enable"), { "data-act": "toggle" }));
+    actions.appendChild(btn("btn danger", tx("ลบ", "Delete"), { "data-act": "delete" }));
+    top.appendChild(actions);
+    card.appendChild(top);
+
+    card.appendChild(el("label", { class: "fld", for: rule.id + "-kw", text: tx("① Keyword ที่ต้องตรงเป๊ะ", "① Keyword, exact match") }));
+    card.appendChild(el("div", { class: "hint", text: tx("ขึ้นบรรทัดใหม่เพื่อใส่หลายคำ (ตรงคำใดคำหนึ่งก็ใช้ได้)", "One keyword or phrase per line (any one of them can match)") }));
+    var keys = el("textarea", { id: rule.id + "-kw", "data-field": "keywords", rows: "3", spellcheck: "false", autocapitalize: "off", autocomplete: "off" });
+    keys.value = rule.keywords;
+    card.appendChild(keys);
+
+    card.appendChild(el("label", { class: "fld", for: rule.id + "-tpl", text: tx("② ข้อความที่ให้ AI ใช้ร่างอีเมล", "② Template the AI uses to draft the reply") }));
+    card.appendChild(el("div", { class: "hint", text: tx("AI จะปรับสำนวนให้เข้ากับอีเมลที่ถามเข้ามา — หน้านี้แสดงข้อความต้นแบบนี้ในตัวอย่างดราฟ", "The AI would adapt the wording to the incoming email — this page previews this template") }));
+    var tmpl = el("textarea", { id: rule.id + "-tpl", "data-field": "template", rows: "4" });
+    tmpl.value = rule.template;
+    card.appendChild(tmpl);
+
+    var opts = el("div", { class: "opts" });
+    var colC = el("div");
+    colC.appendChild(el("label", { class: "fld", text: tx("③ ประเทศ / บริษัทที่ใช้กฎนี้", "③ Countries / companies for this rule") }));
+    colC.appendChild(el("div", { class: "hint", text: tx("เลือกได้หลายประเทศ เฉพาะประเทศที่เลือกจึงจะตรงกฎ", "Select any number. Only a selected country can match.") }));
+    var chips = el("div", { class: "chips", role: "group", "aria-label": tx("ประเทศ", "Countries") });
+    state.countries.forEach(function (c) {
+      if (c.comingSoon || !c.selectable) {
+        chips.appendChild(el("span", { class: "chip soon", text: c.flag + " " + countryName(c) + tx(" (เร็ว ๆ นี้)", " (coming soon)"), title: tx("ยังเปิดใช้ไม่ได้", "Not available yet") }));
+        return;
+      }
+      var on = rule.countries.indexOf(c.code) >= 0;
+      var chip = btn("chip" + (on ? " on" : ""), c.flag + " " + countryName(c), {
+        "data-act": "country",
+        "data-code": c.code,
+        "aria-pressed": on ? "true" : "false",
+        title: c.mailbox || c.code
+      });
+      chips.appendChild(chip);
+    });
+    chips.appendChild(btn("chip add", tx("+ เพิ่มประเทศ", "+ Add country"), { "data-act": "add-country" }));
+    colC.appendChild(chips);
+    opts.appendChild(colC);
+
+    var colL = el("div");
+    colL.appendChild(el("label", { class: "fld", text: tx("④ ภาษาที่ตอบ", "④ Reply language") }));
+    colL.appendChild(el("div", { class: "hint", text: tx("เลือกภาษาที่ AI ใช้ร่างอีเมล ป้าย TH/EN บนปุ่มดราฟใช้ค่านี้", "Language the AI would write in. The TH/EN badge uses this.") }));
+    var langs = el("div", { class: "chips", role: "group", "aria-label": tx("ภาษาที่ตอบ", "Reply language") });
+    [
+      { id: "th", label: tx("ไทย", "Thai") },
+      { id: "en", label: "English" },
+      { id: "match", label: tx("ตามภาษาอีเมลที่ถามมา", "Match the incoming email") }
+    ].forEach(function (opt) {
+      var on = rule.language === opt.id;
+      langs.appendChild(btn("chip" + (on ? " on" : ""), opt.label, {
+        "data-act": "lang",
+        "data-lang": opt.id,
+        "aria-pressed": on ? "true" : "false"
+      }));
+    });
+    colL.appendChild(langs);
+    opts.appendChild(colL);
+    card.appendChild(opts);
+    return card;
+  }
+
+  function renderTable() {
+    var body = document.getElementById("sampleBody");
+    body.innerHTML = "";
+    var matched = 0;
+    var labels = {
+      status: tx("สถานะ", "Status"),
+      sender: tx("ผู้ส่ง", "Sender"),
+      subject: tx("หัวข้อ", "Subject"),
+      country: tx("ประเทศ", "Country"),
+      wait: tx("รอ", "Waiting"),
+      summary: tx("สรุปสั้น ๆ", "Summary"),
+      action: tx("การดำเนินการ", "Action")
+    };
+    SAMPLE_EMAILS.forEach(function (email) {
+      var match = firstMatch(email);
+      if (match) matched++;
+      var tr = document.createElement("tr");
+      var country = findCountry(email.country);
+      var status = el("td", { "data-label": labels.status });
+      status.appendChild(el("span", { class: "badge b-red", text: tx("ยังไม่ได้ตอบ", "Not replied") }));
+      var sender = el("td", { class: "sender", "data-label": labels.sender, text: email.sender });
+      var subject = el("td", { "data-label": labels.subject });
+      var sub = el("div", { class: "subline" });
+      sub.appendChild(document.createTextNode(email.subject));
+      if (match) sub.appendChild(el("span", { class: "tag", text: tx("ตรงกฎ: ", "Rule: ") + ruleLabel(match.rule, match.index) }));
+      subject.appendChild(sub);
+      var ctd = el("td", { class: "country", "data-label": labels.country, text: (country ? country.flag + " " : "") + email.country });
+      if (country && country.mailbox) ctd.title = country.mailbox;
+      var wait = el("td", { "data-label": labels.wait });
+      wait.appendChild(el("span", { class: "badge " + (email.waitLevel === "soon" ? "b-yellow" : "b-red"), text: tx(email.waitTh, email.waitEn) }));
+      var sum = el("td", { "data-label": labels.summary });
+      sum.appendChild(document.createTextNode(tx(email.summaryTh, email.summaryEn)));
+      sum.appendChild(el("div", { class: "meta", text: tx("เนื้อหาตัวอย่าง: ", "Sample body: ") + email.body }));
+      var act = el("td", { class: "actions", "data-label": labels.action });
+      var open = btn("btn open", tx("เปิดอีเมล ↗", "Open email ↗"), { "data-act": "open-sample", "data-email": email.id });
+      act.appendChild(open);
+      if (match) {
+        var lang = resolveLanguage(match.rule, email);
+        var draft = btn("btn draft", "", { "data-act": "draft", "data-email": email.id });
+        draft.appendChild(document.createTextNode(tx("✉ ดราฟอีเมล", "✉ Draft email")));
+        draft.appendChild(el("span", { class: "flag", text: lang }));
+        draft.setAttribute("aria-label", tx("ดูตัวอย่างดราฟอีเมล ภาษา ", "Preview email draft, language ") + lang);
+        act.appendChild(document.createTextNode(" "));
+        act.appendChild(draft);
+      }
+      [status, sender, subject, ctd, wait, sum, act].forEach(function (td) { tr.appendChild(td); });
+      body.appendChild(tr);
+    });
+    document.getElementById("matchCount").textContent = tx("ตรงกฎ ", "Matched ") + matched + " / " + SAMPLE_EMAILS.length;
+  }
+
+  function markDirty() {
+    var elState = document.getElementById("saveState");
+    elState.className = state.dirty ? "warn" : (state.source === "saved" ? "ok" : "");
+    if (state.dirty) elState.textContent = tx("ยังไม่บันทึก — ตารางตัวอย่างอัปเดตตามกฎที่กำลังแก้", "Unsaved — the sample table is using the rules on screen");
+    else if (state.source === "saved") elState.textContent = tx("บันทึกในเบราว์เซอร์นี้แล้ว", "Saved in this browser");
+    else elState.textContent = tx("กำลังแสดงกฎตัวอย่าง — กดบันทึกเพื่อเก็บในเบราว์เซอร์นี้", "Showing sample rules — press Save to keep them in this browser");
+  }
+  function toast(message) {
+    var node = document.getElementById("toast");
+    node.textContent = message;
+    node.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { node.classList.remove("show"); }, 4200);
+  }
+
+  function closeModal() {
+    var root = document.getElementById("modal");
+    root.hidden = true;
+    document.body.classList.remove("modal-open");
+    document.removeEventListener("keydown", onModalKey);
+    if (modalReturn && modalReturn.focus) modalReturn.focus();
+    modalReturn = null;
+  }
+  function onModalKey(ev) {
+    var card = document.querySelector(".modal-card");
+    if (!card) return;
+    if (ev.key === "Escape") { ev.preventDefault(); closeModal(); return; }
+    if (ev.key !== "Tab") return;
+    var nodes = card.querySelectorAll("button, input, textarea, select, a[href]");
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+    else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+  }
+  function openModal(title, bodyNode, actionNodes, focusEl) {
+    modalReturn = document.activeElement;
+    document.getElementById("modalTitle").textContent = title;
+    var body = document.getElementById("modalBody");
+    body.innerHTML = "";
+    body.appendChild(bodyNode);
+    var actions = document.getElementById("modalActions");
+    actions.innerHTML = "";
+    (actionNodes || []).forEach(function (n) { actions.appendChild(n); });
+    var root = document.getElementById("modal");
+    root.hidden = false;
+    document.body.classList.add("modal-open");
+    document.addEventListener("keydown", onModalKey);
+    var target = focusEl || actions.querySelector("button") || body.querySelector("input, textarea, button");
+    if (target) target.focus();
+  }
+
+  function openDraftModal(request, result) {
+    if (!result || result.sent) {
+      toast(tx("ยกเลิก: หน้านี้ไม่ส่งอีเมล", "Cancelled: this page does not send email"));
+      return;
+    }
+    var body = el("div");
+    var lead = el("div", { class: "lead" });
+    lead.appendChild(el("div", { class: "en-line", text: result.notice }));
+    lead.appendChild(el("div", { class: "th-line", text: "จะสร้างแบบร่างใน Gmail ของบัญชีที่กดปุ่มเท่านั้น และไม่ส่งอีเมล" }));
+    body.appendChild(lead);
+    var dl = el("dl", { class: "kv" });
+    function row(dt, dd) {
+      dl.appendChild(el("dt", { text: dt }));
+      dl.appendChild(el("dd", { text: dd }));
+    }
+    row(tx("กฎ", "Rule"), request.ruleName);
+    row(tx("คีย์เวิร์ดที่ตรง", "Matched keyword"), request.keyword);
+    row(tx("ประเทศ / กล่องเมล", "Country / mailbox"), request.countryLabel);
+    row(tx("ภาษาที่ตอบ", "Reply language"), languagePhrase(request.language, request.languageMode) + " · " + request.language);
+    row(tx("หัวข้อแบบร่าง", "Draft subject"), request.subject);
+    row(tx("ผู้รับ (ตัวอย่าง)", "Recipient (sample)"), request.sender);
+    body.appendChild(dl);
+    body.appendChild(el("div", { class: "fld", text: tx("ข้อความต้นแบบ", "Template text") }));
+    body.appendChild(el("pre", { class: "template", text: request.template || tx("(ยังไม่มีข้อความต้นแบบ)", "(no template yet)") }));
+    body.appendChild(el("p", { class: "disc", text: tx("ไม่ได้เชื่อมต่อ Gmail · ไม่มีการส่งอีเมล", "Gmail is not connected · no email is sent") }));
+    var close = btn("btn primary", tx("ปิดตัวอย่าง", "Close preview"));
+    close.addEventListener("click", closeModal);
+    openModal(tx("ตัวอย่างดราฟอีเมล", "Draft email preview"), body, [close], close);
+    toast(tx("แสดงตัวอย่างเท่านั้น — ไม่ได้ส่งอีเมล", "Preview only — nothing was sent"));
+  }
+
+  function onDraft(email) {
+    var match = firstMatch(email);
+    if (!match) return;
+    var country = findCountry(email.country);
+    var request = {
+      emailId: email.id,
+      subject: draftSubject(email.subject),
+      template: match.rule.template || "",
+      language: resolveLanguage(match.rule, email),
+      languageMode: match.rule.language,
+      country: email.country,
+      countryLabel: (country ? country.flag + " " + countryName(country) : email.country) + (country && country.mailbox ? " · " + country.mailbox : ""),
+      mailbox: country ? country.mailbox : "",
+      ruleId: match.rule.id,
+      ruleName: ruleLabel(match.rule, match.index),
+      keyword: match.keyword,
+      sender: email.sender
+    };
+    DraftPort.createDraft(request).then(function (res) { openDraftModal(request, res); });
+  }
+
+  function openCountryDialog(ruleId) {
+    var body = el("div", { class: "form-grid" });
+    function field(id, label, placeholder, max) {
+      var input = el("input", { id: id, type: "text", maxlength: String(max), autocomplete: "off", placeholder: placeholder });
+      var lab = el("label", { text: label });
+      lab.appendChild(input);
+      body.appendChild(lab);
+      return input;
+    }
+    var code = field("cCode", tx("รหัสประเทศ", "Country code"), "ID", 6);
+    var nameTh = field("cNameTh", tx("ชื่อภาษาไทย", "Thai name"), tx("อินโดนีเซีย", "Indonesia"), 40);
+    var nameEn = field("cNameEn", tx("ชื่อภาษาอังกฤษ", "English name"), "Indonesia", 40);
+    var flag = field("cFlag", tx("ธง (อิโมจิ)", "Flag emoji"), "🇮🇩", 16);
+    var mailbox = field("cMail", tx("กล่องเมล", "Mailbox group"), "finance.id@", 80);
+    var err = el("p", { class: "form-err", "aria-live": "polite" });
+    body.appendChild(err);
+    var cancel = btn("btn", tx("ยกเลิก", "Cancel"));
+    cancel.addEventListener("click", closeModal);
+    var save = btn("btn primary", tx("เพิ่มประเทศ", "Add country"));
+    function commit() {
+      var c = sanitizeCountry({
+        code: code.value,
+        flag: flag.value.trim() || "🏳️",
+        nameTh: nameTh.value.trim() || nameEn.value.trim(),
+        nameEn: nameEn.value.trim() || nameTh.value.trim(),
+        mailbox: mailbox.value,
+        selectable: true,
+        comingSoon: false,
+        custom: true
+      });
+      if (!c) { err.textContent = tx("รหัสต้องเป็นตัวอักษร 2–6 ตัว", "Code must be 2–6 letters"); return; }
+      if (!c.mailbox || c.mailbox.indexOf("@") < 0 || /\s/.test(c.mailbox)) {
+        err.textContent = tx("ใส่กล่องเมล เช่น finance.id@", "Enter a mailbox group such as finance.id@");
+        return;
+      }
+      if (findCountry(c.code)) { err.textContent = tx("รหัสนี้มีอยู่แล้ว", "That code already exists"); return; }
+      state.countries.push(c);
+      if (ruleId) {
+        var rule = findRule(ruleId);
+        if (rule && rule.countries.indexOf(c.code) < 0) rule.countries.push(c.code);
+      }
+      state.dirty = true;
+      closeModal();
+      renderCountryLegend();
+      renderRules();
+      renderTable();
+      markDirty();
+      toast(tx("เพิ่มประเทศแล้ว — กดบันทึกกฎเพื่อเก็บไว้", "Country added — press Save rules to keep it"));
+    }
+    save.addEventListener("click", commit);
+    body.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); commit(); } });
+    openModal(tx("เพิ่มประเทศ", "Add a country"), body, [cancel, save], code);
+  }
+
+  function confirmModal(title, message, confirmText, onOk) {
+    var body = el("p", { text: message });
+    var cancel = btn("btn", tx("ยกเลิก", "Cancel"));
+    cancel.addEventListener("click", closeModal);
+    var ok = btn("btn danger", confirmText);
+    ok.addEventListener("click", function () { closeModal(); onOk(); });
+    openModal(title, body, [cancel, ok], cancel);
+  }
+
+  function syncField(target) {
+    var field = target.getAttribute("data-field");
+    if (!field) return;
+    var card = target.closest(".rule");
+    if (!card) return;
+    var rule = findRule(card.getAttribute("data-id"));
+    if (!rule || rule[field] === target.value) return;
+    rule[field] = target.value;
+    state.dirty = true;
+    markDirty();
+    renderTable();
+  }
+
+  document.getElementById("rules").addEventListener("input", function (ev) { syncField(ev.target); });
+  document.getElementById("rules").addEventListener("change", function (ev) { syncField(ev.target); });
+  document.getElementById("countryLegend").addEventListener("click", function (ev) {
+    var button = ev.target.closest("button");
+    if (!button || button.getAttribute("data-act") !== "remove-country") return;
+    var code = button.getAttribute("data-code");
+    var country = findCountry(code);
+    if (!country || !country.custom) return;
+    confirmModal(
+      tx("ลบประเทศ", "Remove country"),
+      tx("ลบ ", "Remove ") + country.flag + " " + countryName(country) + " (" + code + ") " + tx("ออกจากรายการและออกจากทุกกฎ?", "from the list and from every rule?"),
+      tx("ลบประเทศ", "Remove country"),
+      function () {
+        state.countries = state.countries.filter(function (c) { return c.code !== code; });
+        state.rules.forEach(scrubRuleCountries);
+        state.dirty = true;
+        renderCountryLegend();
+        renderRules();
+        renderTable();
+        markDirty();
+      }
+    );
+  });
+  document.getElementById("rules").addEventListener("click", function (ev) {
+    var button = ev.target.closest("button");
+    if (!button) return;
+    var act = button.getAttribute("data-act");
+    if (act === "add-country") {
+      var host = button.closest(".rule");
+      openCountryDialog(host ? host.getAttribute("data-id") : "");
+      return;
+    }
+    var card = button.closest(".rule");
+    if (!card) return;
+    var rule = findRule(card.getAttribute("data-id"));
+    if (!rule) return;
+    if (act === "country") {
+      var code = button.getAttribute("data-code");
+      var at = rule.countries.indexOf(code);
+      if (at >= 0) rule.countries.splice(at, 1);
+      else rule.countries.push(code);
+      var on = rule.countries.indexOf(code) >= 0;
+      button.classList.toggle("on", on);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      state.dirty = true;
+      markDirty();
+      renderTable();
+      return;
+    }
+    if (act === "lang") {
+      rule.language = button.getAttribute("data-lang");
+      Array.prototype.forEach.call(card.querySelectorAll("[data-act=lang]"), function (chip) {
+        var selected = chip === button;
+        chip.classList.toggle("on", selected);
+        chip.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+      state.dirty = true;
+      markDirty();
+      renderTable();
+      return;
+    }
+    if (act === "toggle") {
+      rule.enabled = !rule.enabled;
+      card.classList.toggle("is-off", !rule.enabled);
+      button.textContent = rule.enabled ? tx("ปิดใช้งาน", "Disable") : tx("เปิดใช้งาน", "Enable");
+      state.dirty = true;
+      markDirty();
+      renderTable();
+      return;
+    }
+    if (act === "delete") {
+      var index = state.rules.indexOf(rule);
+      confirmModal(
+        tx("ลบกฎ", "Delete rule"),
+        tx("ลบ «", "Delete “") + ruleLabel(rule, index) + tx("» ?", "”?"),
+        tx("ลบ", "Delete"),
+        function () {
+          state.rules = state.rules.filter(function (item) { return item.id !== rule.id; });
+          state.dirty = true;
+          renderRules();
+          renderTable();
+          markDirty();
+        }
+      );
+    }
+  });
+
+  document.getElementById("sampleBody").addEventListener("click", function (ev) {
+    var button = ev.target.closest("button");
+    if (!button) return;
+    var id = button.getAttribute("data-email");
+    var email = null;
+    for (var i = 0; i < SAMPLE_EMAILS.length; i++) if (SAMPLE_EMAILS[i].id === id) email = SAMPLE_EMAILS[i];
+    if (!email) return;
+    if (button.getAttribute("data-act") === "open-sample") {
+      toast(tx("นี่เป็นอีเมลตัวอย่าง จึงไม่เปิด Gmail", "This row is sample data, so Gmail is not opened"));
+      return;
+    }
+    if (button.getAttribute("data-act") === "draft") onDraft(email);
+  });
+
+  document.getElementById("addRule").addEventListener("click", function () {
+    var rule = { id: uid(), name: "", enabled: true, keywords: "", template: "", countries: ["TH"], language: "th" };
+    state.rules.push(rule);
+    state.dirty = true;
+    renderRules();
+    renderTable();
+    markDirty();
+    var card = document.querySelector('.rule[data-id="' + rule.id + '"]');
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      var input = card.querySelector("[data-field=name]");
+      if (input) input.focus();
+    }
+  });
+
+  document.getElementById("saveBtn").addEventListener("click", function () {
+    var button = document.getElementById("saveBtn");
+    button.disabled = true;
+    StoragePort.save(snapshot("save")).then(function () {
+      state.dirty = false;
+      state.source = "saved";
+      markDirty();
+      toast(tx("บันทึกกฎในเบราว์เซอร์นี้แล้ว", "Rules saved in this browser"));
+    }, function () {
+      document.getElementById("saveState").className = "err";
+      document.getElementById("saveState").textContent = tx("บันทึกไม่สำเร็จ ลองส่งออก JSON แทน", "Could not save. Try exporting JSON instead.");
+    }).then(function () { button.disabled = false; });
+  });
+
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    var blob = new Blob([JSON.stringify(snapshot("export"), null, 2) + "\n"], { type: "application/json" });
+    var a = document.createElement("a");
+    var url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = "auto-email-rules.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    toast(tx("ส่งออกไฟล์กฎแล้ว (ยังไม่ส่งอีเมล)", "Exported the rules file (no email was sent)"));
+  });
+
+  document.getElementById("importBtn").addEventListener("click", function () {
+    document.getElementById("importFile").click();
+  });
+  document.getElementById("importFile").addEventListener("change", function (ev) {
+    var file = ev.target.files && ev.target.files[0];
+    ev.target.value = "";
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var parsed;
+      try { parsed = JSON.parse(String(reader.result || "")); }
+      catch (e) { toast(tx("ไฟล์ไม่ใช่ JSON", "That file is not JSON")); return; }
+      var doc = Array.isArray(parsed) ? { rules: parsed } : parsed;
+      if (!doc || typeof doc !== "object" || !Array.isArray(doc.rules)) {
+        toast(tx("ไม่พบรายการกฎในไฟล์", "No rules list in that file"));
+        return;
+      }
+      var rules = doc.rules.map(normalizeRule).filter(Boolean);
+      if (doc.rules.length && !rules.length) { toast(tx("กฎในไฟล์อ่านไม่ได้", "Could not read the rules in that file")); return; }
+      if (rules.length > 40) { toast(tx("ไฟล์มีกฎมากเกิน 40 ข้อ", "The file has more than 40 rules")); return; }
+      confirmModal(
+        tx("นำเข้ากฎ", "Import rules"),
+        tx("แทนที่กฎบนหน้านี้ด้วย ", "Replace the rules on this page with ") + rules.length + tx(" ข้อจากไฟล์?", " from the file?"),
+        tx("นำเข้า", "Import"),
+        function () {
+          if (Array.isArray(doc.countries)) state.countries = mergeCountries(doc.countries);
+          state.rules = rules;
+          state.rules.forEach(scrubRuleCountries);
+          state.dirty = true;
+          renderCountryLegend();
+          renderRules();
+          renderTable();
+          StoragePort.save(snapshot("save")).then(function () {
+            state.dirty = false;
+            state.source = "saved";
+            markDirty();
+            toast(tx("นำเข้าและบันทึกแล้ว", "Imported and saved"));
+          }, function () {
+            markDirty();
+            toast(tx("นำเข้าบนหน้านี้แล้ว แต่ยังบันทึกไม่ได้", "Imported on this page, but saving failed"));
+          });
+        }
+      );
+    };
+    reader.onerror = function () { toast(tx("อ่านไฟล์ไม่สำเร็จ", "Could not read the file")); };
+    reader.readAsText(file);
+  });
+
+  document.getElementById("modalBack").addEventListener("click", closeModal);
+
+  function applyRules(rules, countries, source) {
+    state.countries = mergeCountries(countries);
+    state.rules = (rules || []).map(normalizeRule).filter(Boolean);
+    state.rules.forEach(scrubRuleCountries);
+    state.source = source;
+    state.dirty = false;
+    renderCountryLegend();
+    renderRules();
+    renderTable();
+    markDirty();
+  }
+  function boot() {
+    StoragePort.load().then(function (doc) {
+      if (!doc) { applyRules(seedRules(), null, "seed"); return; }
+      if (typeof doc !== "object" || !Array.isArray(doc.rules)) {
+        applyRules(seedRules(), null, "seed");
+        toast(tx("อ่านกฎที่บันทึกไว้ไม่สำเร็จ แสดงกฎตัวอย่าง", "Could not read saved rules. Showing the sample rules."));
+        return;
+      }
+      applyRules(doc.rules, doc.countries, "saved");
+    }, function () {
+      applyRules(seedRules(), null, "seed");
+      toast(tx("อ่านกฎที่บันทึกไว้ไม่สำเร็จ แสดงกฎตัวอย่าง", "Could not read saved rules. Showing the sample rules."));
+    });
+  }
+
+  window.addEventListener("beforeunload", function (ev) {
+    if (!state.dirty) return;
+    ev.preventDefault();
+    ev.returnValue = "";
+  });
+  document.addEventListener("langchange", function () {
+    renderCountryLegend();
+    renderRules();
+    renderTable();
+    markDirty();
+  });
+
+  boot();
+
+  window.AutoEmail = {
+    keywordHit: keywordHit,
+    firstMatch: function (email) { return firstMatch(email); },
+    resolveLanguage: resolveLanguage,
+    splitKeywords: splitKeywords,
+    sampleEmails: SAMPLE_EMAILS,
+    ports: { storage: StoragePort, draft: DraftPort },
+    getState: function () { return state; }
+  };
+})();
+</script>
+</body>
+</html>
