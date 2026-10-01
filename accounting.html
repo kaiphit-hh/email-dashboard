@@ -133,41 +133,58 @@ table.acc .badge{margin:0;white-space:nowrap}
   var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-10-01T12:36:39+07:00", "metaKey": "accounting_updated_at"};
   var btn=document.getElementById('refreshBtn'),msg=document.getElementById('refreshMsg');
   if(!btn)return;
-  var KEY='dash_refresh_until',COOL=5*60*1000,timer=null,poll=null;
+  var KEY='dash_refresh_until',SKEY='dash_refresh_start',COOL=60*1000,MAXWAIT=8*60*1000,timer=null,poll=null,busy=false;
+  var LABEL='อัปเดตตอนนี้';
   function say(t,err){msg.textContent=t;msg.className=err?'err':'';}
   function fmt(ms){var s=Math.ceil(ms/1000),m=Math.floor(s/60);s=s%60;return m+':'+(s<10?'0':'')+s;}
-  function getUntil(){try{return parseInt(localStorage.getItem(KEY)||'0',10)||0}catch(x){return 0}}
+  function fmtUp(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60);s=s%60;return m+':'+(s<10?'0':'')+s;}
+  function getN(k){try{return parseInt(localStorage.getItem(k)||'0',10)||0}catch(x){return 0}}
+  function setN(k,v){try{if(v)localStorage.setItem(k,String(v));else localStorage.removeItem(k)}catch(x){}}
+  function stage(el){
+    if(el<8000)return 'ส่งคำสั่งแล้ว กำลังเริ่มงาน...';
+    if(el<45000)return 'กำลังดึงอีเมลล่าสุด...';
+    if(el<150000)return 'กำลังวิเคราะห์และสรุปอีเมล...';
+    return 'ใกล้เสร็จแล้ว (ปกติใช้ 3–5 นาที) หน้าจะรีโหลดเอง';
+  }
+  function stopTimers(){if(timer){clearInterval(timer);timer=null;}if(poll){clearInterval(poll);poll=null;}}
   function tick(){
-    var left=getUntil()-Date.now();
-    if(left>0){btn.disabled=true;btn.textContent='อัปเดตตอนนี้ (รอ '+fmt(left)+')';}
-    else{btn.disabled=false;btn.textContent='อัปเดตตอนนี้';if(timer){clearInterval(timer);timer=null;}}
+    var st=getN(SKEY);
+    if(busy&&st){
+      var el=Date.now()-st;
+      if(el>MAXWAIT){busy=false;setN(SKEY,0);stopTimers();say('ใช้เวลานานกว่าปกติ ลองรีเฟรชหน้านี้อีกครั้งในอีกสักครู่',true);tick();return;}
+      btn.disabled=true;btn.textContent='กำลังอัปเดต... '+fmtUp(el);say(stage(el));return;
+    }
+    var left=getN(KEY)-Date.now();
+    if(left>0){btn.disabled=true;btn.textContent=LABEL+' (รอ '+fmt(left)+')';}
+    else{btn.disabled=false;btn.textContent=LABEL;if(!busy&&timer){clearInterval(timer);timer=null;}}
   }
-  function startCooldown(){try{localStorage.setItem(KEY,String(Date.now()+COOL))}catch(x){} tick(); if(!timer)timer=setInterval(tick,1000);}
-  function startPolling(){
-    if(poll)clearInterval(poll);
-    var t0=Date.now();
-    poll=setInterval(function(){
-      if(Date.now()-t0>8*60*1000){clearInterval(poll);poll=null;return;}
-      fetch('meta.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
-        if(m&&m[R.metaKey]&&m[R.metaKey]!==R.updatedAt){say('มีข้อมูลใหม่ กำลังโหลดหน้าใหม่...');setTimeout(function(){location.reload()},600);}
-      }).catch(function(){});
-    },20000);
+  function startTimer(){if(!timer)timer=setInterval(tick,1000);tick();}
+  function check(){
+    fetch('meta.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
+      if(m&&m[R.metaKey]&&m[R.metaKey]!==R.updatedAt){setN(SKEY,0);busy=false;stopTimers();btn.disabled=true;say('อัปเดตเสร็จแล้ว กำลังโหลดหน้าใหม่...');setTimeout(function(){location.reload()},500);}
+    }).catch(function(){});
   }
+  function startPolling(){if(poll)clearInterval(poll);poll=setInterval(check,10000);}
+  function cooldownOnly(){busy=false;setN(SKEY,0);startTimer();}
   btn.addEventListener('click',function(){
-    if(getUntil()>Date.now())return;
+    if(busy||getN(KEY)>Date.now())return;
     if(!R.endpoint){say('ยังไม่ได้ตั้งค่าการเชื่อมต่อการอัปเดต',true);return;}
-    btn.disabled=true;btn.textContent='กำลังส่งคำสั่ง...';say('');
-    function reset(){btn.disabled=false;btn.textContent='อัปเดตตอนนี้';}
+    busy=true;setN(SKEY,Date.now());setN(KEY,Date.now()+COOL);
+    btn.disabled=true;btn.textContent='กำลังอัปเดต... 0:00';say('ส่งคำสั่งแล้ว กำลังเริ่มงาน...');
+    startTimer();startPolling();
+    function fail(t,clear){busy=false;setN(SKEY,0);if(clear)setN(KEY,0);stopTimers();say(t,true);tick();}
     fetch(R.endpoint,{method:'POST'})
     .then(function(r){
-      if(r.status===200){say('ส่งคำสั่งแล้ว ข้อมูลจะอัปเดตใน 3–5 นาที');startCooldown();startPolling();}
-      else if(r.status===429){say('เพิ่งอัปเดตไปแล้ว รอสักครู่',true);startCooldown();}
-      else{say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);reset();}
+      if(r.status===200){return;}
+      else if(r.status===429){busy=false;setN(SKEY,0);setN(KEY,Date.now()+COOL);say('เพิ่งอัปเดตไปแล้ว รอสักครู่',true);startTimer();}
+      else{fail('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);}
     })
-    .catch(function(){say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);reset();});
+    .catch(function(){fail('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);});
   });
-  tick(); if(getUntil()>Date.now()&&!timer)timer=setInterval(tick,1000);
-  if(getUntil()>Date.now())startPolling();
+  /* resume after manual reload / reopen */
+  var st0=getN(SKEY);
+  if(st0&&Date.now()-st0<MAXWAIT){busy=true;startTimer();startPolling();}
+  else{setN(SKEY,0);tick();if(getN(KEY)>Date.now())startTimer();}
 })();
 </script>
 </body>
