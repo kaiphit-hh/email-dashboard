@@ -109,8 +109,15 @@ table.acc .badge{margin:0;white-space:nowrap}
 .c-sum .meta{font-size:11.5px}
 .disc{font-size:12px;color:var(--mute);margin:10px 0 0;font-style:italic}
 .empty{display:none;text-align:center;color:var(--mute);padding:20px}
-.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:800px){.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis.k3 .kpi:first-child{grid-column:1/-1}}
+.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}.kpis.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.viewtabs{display:flex;gap:8px;margin:12px 0 0}.viewtabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:5px 16px;border-radius:999px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.viewtabs button.active{background:var(--ink);color:var(--card);border-color:var(--ink)}.viewtabs .cnt{margin-left:4px}.viewtabs button.active .cnt{background:rgba(255,255,255,.2);color:inherit}
+#kpiLine{cursor:pointer}
+table.line td{padding:7px 8px}.st-un{background:var(--red)}.st-rd{background:var(--orange)}
+.linehead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;margin-bottom:8px}.linehead .meta{font-size:12.5px}
+#lineStale{display:none;color:var(--orange);font-size:12.5px;margin:0 0 8px}
+@media(max-width:800px){.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis.k3 .kpi:first-child{grid-column:1/-1}.kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:801px) and (max-width:1100px){.kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .c-ck{width:26px;padding-right:0!important}.c-ck input,#ckAll{width:15px;height:15px;cursor:pointer;accent-color:var(--blue)}
 tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 .manlbl{white-space:normal;max-width:210px;margin-top:2px;overflow-wrap:anywhere}
@@ -128,7 +135,9 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 <header><div class="wrap hdr"><div><h1><span class="th">ทีมบัญชี · ติดตามการตอบอีเมล</span><span class="en">Accounting · Email reply tracker</span></h1><p><span class="th">อีเมลที่ส่งถึง finance@ / finance.sg@ / finance.my@ ย้อนหลัง 14 วัน · จัดสถานะอัตโนมัติ</span><span class="en">Emails sent to finance@ / finance.sg@ / finance.my@ over the last 14 days · status assigned automatically</span></p></div>
 <div class="hdr-act"><button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false" title="โหมดมืด/สว่าง · Dark / light"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button><div class="langsw" role="group" aria-label="Language / ภาษา"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div><a class="navbtn" href="index.html"><span class="th">← แดชบอร์ดหลัก</span><span class="en">← Main dashboard</span></a><button id="refreshBtn" type="button"><span class="th">อัปเดตตอนนี้</span><span class="en">Update now</span></button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T12:50:00+07:00"><span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></div></div></div></header>
 <main class="wrap">
-<div class="kpis k3"><div class="kpi k-red"><div class="ico">⏳</div><div class="n" data-k="un"></div><div class="l"><span class="th">ยังไม่ได้ตอบ</span><span class="en">Not replied</span></div><div class="s"><span class="th">เร่งด่วน (รอ &gt;1 วัน) </span><span class="en">Urgent (waiting &gt;1 day) </span><span data-k="red"></span><span class="th"> เรื่อง</span><span class="en"> </span></div></div><div class="kpi k-green"><div class="ico">✅</div><div class="n" data-k="ans"></div><div class="l"><span class="th">ตอบแล้ว/ปิดเคส (วันนี้)</span><span class="en">Replied / closed (today)</span></div><div class="s"><span class="th">นับจากวันที่ทีมบัญชีตอบ หรือวันที่ปิดด้วยมือ</span><span class="en">Counted by the date accounting replied or it was closed manually</span></div></div><div class="kpi k-purple"><div class="ico">📎</div><div class="n" data-k="fyi"></div><div class="l"><span class="th">FYI ไม่ต้องตอบ (วันนี้)</span><span class="en">FYI, no reply needed (today)</span></div><div class="s"><span class="th">เอกสาร/แจ้งเตือน ไม่มีคำถาม</span><span class="en">Documents/notifications, no question</span></div></div></div>
+<div class="kpis k4"><div class="kpi k-red"><div class="ico">⏳</div><div class="n" data-k="un"></div><div class="l"><span class="th">ยังไม่ได้ตอบ</span><span class="en">Not replied</span></div><div class="s"><span class="th">เร่งด่วน (รอ &gt;1 วัน) </span><span class="en">Urgent (waiting &gt;1 day) </span><span data-k="red"></span><span class="th"> เรื่อง</span><span class="en"> </span></div></div><div class="kpi k-green"><div class="ico">✅</div><div class="n" data-k="ans"></div><div class="l"><span class="th">ตอบแล้ว/ปิดเคส (วันนี้)</span><span class="en">Replied / closed (today)</span></div><div class="s"><span class="th">นับจากวันที่ทีมบัญชีตอบ หรือวันที่ปิดด้วยมือ</span><span class="en">Counted by the date accounting replied or it was closed manually</span></div></div><div class="kpi k-purple"><div class="ico">📎</div><div class="n" data-k="fyi"></div><div class="l"><span class="th">FYI ไม่ต้องตอบ (วันนี้)</span><span class="en">FYI, no reply needed (today)</span></div><div class="s"><span class="th">เอกสาร/แจ้งเตือน ไม่มีคำถาม</span><span class="en">Documents/notifications, no question</span></div></div><div id="kpiLine" class="kpi k-orange"><div class="ico">💬</div><div class="n">4</div><div class="l"><span class="th">LINE OA ยังไม่ตอบ</span><span class="en">LINE OA not replied</span></div><div class="s"><span class="th">ยังไม่อ่าน 3 · อ่านแล้วยังไม่ตอบ 1</span><span class="en">Unread 3 · Read, not replied 1</span></div></div></div>
+<div class="viewtabs" id="viewtabs" role="tablist"><button type="button" class="active" data-v="email"><span class="th">อีเมล</span><span class="en">Email</span></button><button type="button" data-v="line">LINE OA <span class="cnt">4</span></button></div>
+<div id="viewEmail">
 <section style="margin-top:12px">
 <h2><span class="th">รายการอีเมล</span><span class="en">Emails</span> <span class="count"><span id="shown">0</span> / <span data-k="tot">0</span></span></h2>
 <div class="toolbar">
@@ -152,6 +161,17 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 <p class="disc"><span class="th">แสดง “ตอบแล้ว/ปิดเคส” และ FYI เฉพาะที่เกิดขึ้น “วันนี้” (ตามวันที่ปฏิทินเวลาไทย ณ ตอนเปิดหน้า): ตอบแล้ว = วันที่ทีมบัญชีตอบ · FYI = วันที่รับ/เคลื่อนไหวล่าสุด · ปิดด้วยมือ = วันที่กดบันทึก — ซ่อนอยู่ </span><span class="en">“Replied / closed” and FYI rows are shown only if they happened “today” (calendar date in Thailand time, evaluated when you open the page): replied = the date accounting replied · FYI = received / latest activity date · closed manually = the date it was saved — hidden: </span><span data-k="hid">0</span><span class="th"> รายการ · “ยังไม่ได้ตอบ” แสดงต่อไปจนกว่าทีมบัญชีตอบหรือถูกปิดด้วยมือ ไม่จำกัดอายุ</span><span class="en"> · “Not replied” rows stay until the accounting team replies or they are closed manually, with no age limit</span></p>
 <p class="disc"><span class="th">ลิงก์ “เปิดอีเมล ↗” เป็นการค้นหาใน Gmail ของคุณเอง — เปิดได้เฉพาะสมาชิกกลุ่ม finance@ / finance.sg@ / finance.my@ ที่ล็อกอิน Gmail (ถ้าค้นไม่เจอ ให้ลองใส่ชื่อผู้ส่ง/หัวข้อในช่องค้นหา Gmail)</span><span class="en">“Open email ↗” links run a search in your own Gmail — they only open for members of the finance@ / finance.sg@ / finance.my@ groups who are signed in to Gmail (if nothing is found, search Gmail for the sender / subject)</span></p>
 <p class="disc"><span class="th">จัดสถานะโดยอัตโนมัติ อาจคลาดเคลื่อน โปรดตรวจสอบ · สีเวลารอ: แดง = รอเกิน 1 วัน · ส้ม = เกิน 4 ชม.ทำการ · เหลือง/เขียว = ไม่เกิน 4 ชม.ทำการ · ไม่แสดงเนื้อหาอีเมล · “ปิดด้วยมือ” ใช้ร่วมกันทุกคนที่มีลิงก์หน้านี้ (ยังไม่มีรหัสผ่าน)</span><span class="en">Statuses are assigned automatically and may be inaccurate — please verify · waiting colors: red = over 1 day · orange = over 4 business hours · yellow/green = within 4 business hours · email content is not shown · “Closed manually” is shared by everyone with this page link (no password yet)</span></p>
+</section>
+</div>
+<section id="viewLine" style="margin-top:12px;display:none">
+<h2>LINE OA <span class="count">4</span></h2>
+<div class="linehead"><span class="meta"><span class="th">ข้อมูล ณ 1 ต.ค. 2569 15:50 น.</span><span class="en">Data as of 1 Oct 2026 15:50</span></span>
+<span class="meta"><span class="th">ยังไม่อ่าน 3 · อ่านแล้วยังไม่ตอบ 1 · ตอบ/ปิดแล้ว 13</span><span class="en">Unread 3 · Read, not replied 1 · Completed 13</span></span></div>
+<p id="lineStale" data-updated="2026-10-01T15:50:00+07:00"><span class="th">ข้อมูล LINE OA เก่ากว่า 24 ชม. — อาจไม่เป็นปัจจุบัน (รอรอบอัปเดตถัดไป)</span><span class="en">LINE OA data is older than 24 h — it may be out of date (waiting for the next update)</span></p>
+<div class="tblwrap"><table class="acc line"><thead><tr><th><span class="th">สถานะ</span><span class="en">Status</span></th><th><span class="th">ชื่อลูกค้า (LINE)</span><span class="en">Customer (LINE)</span></th><th><span class="th">ข้อความล่าสุด</span><span class="en">Last message</span></th><th><span class="th">เวลารอ</span><span class="en">Waiting</span></th><th><span class="th">แชท</span><span class="en">Chat</span></th></tr></thead>
+<tbody><tr><td><span class="badge st-un"><span class="th">ยังไม่อ่าน</span><span class="en">Unread</span></span></td><td class="c-snd">T-REX&#x27;S บัญชี</td><td class="c-tm"><span class="th">วันอังคาร</span><span class="en">Tuesday</span></td><td class="c-w"><span class="meta">–</span></td><td><span class="meta">–</span></td></tr><tr><td><span class="badge st-un"><span class="th">ยังไม่อ่าน</span><span class="en">Unread</span></span></td><td class="c-snd">SmileRiversideOffice</td><td class="c-tm"><span class="th">เมื่อวาน</span><span class="en">Yesterday</span></td><td class="c-w"><span class="meta">–</span></td><td><span class="meta">–</span></td></tr><tr><td><span class="badge st-rd"><span class="th">อ่านแล้วยังไม่ตอบ</span><span class="en">Read, not replied</span></span></td><td class="c-snd">Pebbles Bar &amp; Grill</td><td class="c-tm"><span class="th">เมื่อวาน</span><span class="en">Yesterday</span></td><td class="c-w"><span class="meta">–</span></td><td><span class="meta">–</span></td></tr><tr><td><span class="badge st-un"><span class="th">ยังไม่อ่าน</span><span class="en">Unread</span></span></td><td class="c-snd">PLAWAN.</td><td class="c-tm"><span class="th">วันนี้ 15.35 น.</span><span class="en">Today 15:35</span></td><td class="c-w"><span class="meta">–</span></td><td><span class="meta">–</span></td></tr></tbody></table></div>
+
+<p class="disc"><span class="th">แสดงเฉพาะชื่อที่แสดงใน LINE, เวลาแบบสัมพัทธ์ และสถานะ — ไม่แสดงข้อความหรือเบอร์โทร · เรียงตามรอนานที่สุดก่อน · ลิงก์ “เปิดแชท ↗” ต้องล็อกอิน LINE Official Account Manager ของทีม</span><span class="en">Only the LINE display name, a relative time label and the status are shown — no message text or phone numbers · sorted by longest waiting first · “Open chat ↗” links need the team&#x27;s LINE Official Account Manager login</span></p>
 </section>
 </main>
 <footer><a href="index.html" style="color:inherit"><span class="th">← กลับแดชบอร์ดหลัก</span><span class="en">← Back to main dashboard</span></a> · <span class="th">ทีมบัญชี</span><span class="en">Accounting</span> · <span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></footer>
@@ -336,6 +356,19 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
   window.addEventListener('storage',function(ev){if(ev.key==='dash_lang')set(ev.newValue==='en'?'en':'th',false)});
   window.__setLang=set;
   set(h.getAttribute('data-lang')==='en'?'en':'th',false);
+})();
+</script>
+<script>
+(function(){
+  var tabs=document.getElementById('viewtabs');if(!tabs)return;
+  var em=document.getElementById('viewEmail'),ln=document.getElementById('viewLine');
+  function show(v){em.style.display=v==='line'?'none':'';ln.style.display=v==='line'?'':'none';
+    [].forEach.call(tabs.querySelectorAll('button'),function(b){b.classList.toggle('active',b.dataset.v===v)});
+    try{history.replaceState(null,'',v==='line'?'#line':location.pathname+location.search)}catch(x){}}
+  [].forEach.call(tabs.querySelectorAll('button'),function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
+  var k=document.getElementById('kpiLine');if(k)k.addEventListener('click',function(){show('line');tabs.scrollIntoView({behavior:'smooth',block:'start'})});
+  if(location.hash==='#line')show('line');
+  var st=document.getElementById('lineStale');if(st){var u=Date.parse(st.dataset.updated);if(u&&Date.now()-u>24*3600*1000)st.style.display='block';}
 })();
 </script>
 </body>
