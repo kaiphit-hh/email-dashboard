@@ -78,7 +78,7 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;padding:14px}
 </head>
 <body>
 <header><div class="wrap hdr"><div><h1>สรุปอีเมลประจำวัน 30 ก.ย. 2569</h1><p>(ข้อมูลถึงประมาณ 18:50 น.)</p></div>
-<div class="hdr-act"><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-09-30T18:50:00+07:00">ข้อมูล ณ 30 ก.ย. 2569 18:50 น.</div></div></div></header>
+<div class="hdr-act"><button id="refreshBtn" type="button">อัปเดตตอนนี้</button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-09-30T18:50:00+07:00">ข้อมูล ณ 30 ก.ย. 2569 18:50 น.</div></div></div></header>
 <nav><div class="wrap"><a href="#direct">ส่งถึงคุณโดยตรง</a><a href="#chart">สัดส่วนอีเมล</a><a href="#pending">ยังไม่ได้ตอบ</a><a href="#info">แจ้งข้อมูลให้ทราบ (ไม่ต้องตอบ)</a><a href="#backlog">ค้างจากช่วง 7 วันที่ผ่านมา</a><a href="#topics">หัวข้อที่ติดต่อมา</a></div></nav>
 <main class="wrap">
 <div class="kpis"><div class="kpi k-blue"><div class="ico">✉</div><div class="n">~101</div><div class="l">อีเมลเข้าทั้งหมด</div><div class="s">ฉบับ (~75 เธรด)</div></div><div class="kpi k-red"><div class="ico">★</div><div class="n">6</div><div class="l">ส่งถึงคุณโดยตรง</div></div><div class="kpi k-purple"><div class="ico">◆</div><div class="n">2</div><div class="l">โปรโมชัน/สแปม</div></div><div class="kpi k-green"><div class="ico">⚙</div><div class="n">~50</div><div class="l">เมลอัตโนมัติ</div><div class="s">Xendit/GB Prime Pay แจ้งรับชำระ 15, e-Tax receipt 9, Booking Report ร้านพาร์ทเนอร์ ~20, SCB/ttb แจ้งเงินเข้า</div></div></div>
@@ -106,7 +106,7 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;padding:14px}
 </script>
 <script>
 (function(){
-  var R={"webhook": "", "updatedAt": "2026-09-30T18:50:00+07:00"};
+  var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-09-30T18:50:00+07:00"};
   var btn=document.getElementById('refreshBtn'),msg=document.getElementById('refreshMsg');
   if(!btn)return;
   var KEY='dash_refresh_until',COOL=5*60*1000,timer=null,poll=null;
@@ -131,11 +131,16 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;padding:14px}
   }
   btn.addEventListener('click',function(){
     if(getUntil()>Date.now())return;
-    if(!R.webhook){say('ยังไม่ได้ตั้งค่าการเชื่อมต่อการอัปเดต',true);return;}
+    if(!R.endpoint){say('ยังไม่ได้ตั้งค่าการเชื่อมต่อการอัปเดต',true);return;}
     btn.disabled=true;btn.textContent='กำลังส่งคำสั่ง...';say('');
-    fetch(R.webhook,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:'refresh'})
-    .then(function(){say('ส่งคำสั่งแล้ว ข้อมูลจะอัปเดตใน 3–5 นาที');startCooldown();startPolling();})
-    .catch(function(){say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);btn.disabled=false;btn.textContent='อัปเดตตอนนี้';});
+    function reset(){btn.disabled=false;btn.textContent='อัปเดตตอนนี้';}
+    fetch(R.endpoint,{method:'POST'})
+    .then(function(r){
+      if(r.status===200){say('ส่งคำสั่งแล้ว ข้อมูลจะอัปเดตใน 3–5 นาที');startCooldown();startPolling();}
+      else if(r.status===429){say('เพิ่งอัปเดตไปแล้ว รอสักครู่',true);startCooldown();}
+      else{say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);reset();}
+    })
+    .catch(function(){say('ส่งคำสั่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง',true);reset();});
   });
   tick(); if(getUntil()>Date.now()&&!timer)timer=setInterval(tick,1000);
   if(getUntil()>Date.now())startPolling();
