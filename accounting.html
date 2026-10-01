@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" data-lang="th" data-title-th="ทีมบัญชี · ติดตามการตอบอีเมล" data-title-en="Accounting · Email reply tracker">
+<html lang="th" data-lang="th" data-default="accounting" data-build="2026-10-01T12:50:00+07:00" data-title-th="ทีมบัญชี · ติดตามการตอบอีเมล" data-title-en="Accounting · Email reply tracker">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,16 +72,16 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:12px}
 @media(max-width:800px){header{padding:18px 0}section{padding:14px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:6px 10px 8px}.kpi .n{font-size:22px}.kpi .l{font-size:12px}.kpi .s{font-size:11px}.chart{flex-direction:column;align-items:stretch}#donut{margin:0 auto}}
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap}.hdr>div:first-child{min-width:0}
 .hdr-act{display:flex;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:12px;text-align:right;flex:none}
-#refreshBtn{border:0;border-radius:999px;padding:5px 16px;font:inherit;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#1e2f7a;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-#refreshBtn:hover:not(:disabled){transform:translateY(-1px)}
-#refreshBtn:disabled{opacity:.7;cursor:not-allowed}
-#refreshMsg{font-size:12px;opacity:.95;max-width:340px}#refreshMsg:empty{display:none}
-#refreshMsg.err{color:#ffd0d0;font-weight:600}
+.rbtn{border:0;border-radius:999px;padding:5px 16px;font:inherit;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#1e2f7a;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.rbtn:hover:not(:disabled){transform:translateY(-1px)}
+.rbtn:disabled{opacity:.7;cursor:not-allowed}
+.rmsg{font-size:12px;opacity:.95;max-width:340px}.rmsg:empty{display:none}
+.rmsg.err{color:#ffd0d0;font-weight:600}
 .fresh{font-size:12px;opacity:.9;white-space:nowrap}
 .navbtn{display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
 .navbtn:hover{background:rgba(255,255,255,.28)}
 @media(max-width:800px){.hdr{flex-wrap:wrap;gap:6px}.hdr-act{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:8px;text-align:left}header h1{font-size:20px}header p{font-size:12.5px}}
-@media print{#refreshBtn,#refreshMsg,.langsw,.themesw{display:none}nav{display:none}header{background:#243b8f}}
+@media print{.rbtn,.rmsg,.langsw,.themesw{display:none}nav{display:none}header{background:#243b8f}}
 .en{display:none}html[data-lang="en"] .th{display:none}html[data-lang="en"] .en{display:inline}
 .themesw{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:0;flex:none;white-space:nowrap}
 .themesw .trk{position:relative;display:inline-block;width:46px;height:24px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.14);transition:background .15s}
@@ -118,10 +118,12 @@ html[data-lang="th"] .top-act .langsw [data-l="th"],html[data-lang="en"] .top-ac
 .greetrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:16px}
 .greet{margin:0;font-size:clamp(20px,1.9vw,27px);line-height:1.3;letter-spacing:-.01em}.gsub{margin:2px 0 0;color:var(--mute);font-size:13px;line-height:1.45}.gsub b{color:var(--ink)}
 .greetrow .hdr-act{flex-direction:row;flex-wrap:wrap;gap:10px;color:var(--ink)}.greetrow .fresh{color:var(--mute);opacity:1}
-.greetrow #refreshBtn{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}.greetrow #refreshMsg{color:var(--mute)}.greetrow #refreshMsg.err{color:var(--red)}
+.greetrow .rbtn{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}.greetrow .rmsg{color:var(--mute)}.greetrow .rmsg.err{color:var(--red)}
 .greetrow .navbtn{display:none}
 @media(max-width:800px){.app{flex-direction:column}.side{width:auto;height:auto;position:static;flex-direction:row;align-items:center;flex-wrap:wrap;padding:8px 12px;border-right:0;border-bottom:1px solid var(--line);gap:6px}
 .side .logo{width:44px;height:44px;padding:3px;border-radius:10px;margin:0 6px 0 0}.side .lbl,.side .sfoot{display:none}.side .mi{padding:6px 10px}.side .mi.on::before{display:none}.topbar{padding:8px 16px}.clock{display:none}}
+.view[hidden]{display:none}.crumbv[hidden]{display:none}
+.vload{padding:40px 0;text-align:center;color:var(--mute)}
 
 .toolbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:10px}
 .toolbar .filters{margin:0}.toolbar .sep{color:var(--mute);font-size:12px}
@@ -162,9 +164,10 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 </style>
 </head>
 <body>
-<div class="app"><aside class="side"><a class="logo" href="index.html" aria-label="Hungry Hub"><img src="logo.jpg" alt="Hungry Hub" width="112" height="112"></a><div class="lbl"><span class="th">เมนูหลัก</span><span class="en">Main menu</span></div><a class="mi" href="index.html"><span class="ic">📬</span><span><span class="th">สรุปอีเมลประจำวัน</span><span class="en">Daily email summary</span></span></a><a class="mi on" href="accounting.html" aria-current="page"><span class="ic">📊</span><span><span class="th">ทีมบัญชี</span><span class="en">Accounting team</span></span></a><div class="sfoot">Hungry Hub · <span class="th">แดชบอร์ดภายใน</span><span class="en">Internal dashboard</span></div></aside><div class="col">
-<div class="topbar"><div class="crumb"><span class="th">การเงินและบัญชี</span><span class="en">Accounting &amp; Finance</span> › <b><span class="th">ทีมบัญชี</span><span class="en">Accounting team</span></b></div><div class="top-act"><span class="clock" id="clock" aria-live="off"></span><div class="langsw" role="group" aria-label="Language / ภาษา"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div><button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false" title="โหมดมืด/สว่าง · Dark / light"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button></div></div>
-<div class="wrap greetrow"><div><h1 class="greet"><span id="greetTxt"></span> 👋</h1><p class="gsub"><b><span class="th">ทีมบัญชี · ติดตามการตอบอีเมล</span><span class="en">Accounting · Email reply tracker</span></b> · <span class="th">อีเมลที่ส่งถึง finance@ / finance.sg@ / finance.my@ ย้อนหลัง 14 วัน · จัดสถานะอัตโนมัติ</span><span class="en">Emails sent to finance@ / finance.sg@ / finance.my@ over the last 14 days · status assigned automatically</span></p></div><div class="hdr-act"><button id="refreshBtn" type="button"><span class="th">อัปเดตตอนนี้</span><span class="en">Update now</span></button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T12:50:00+07:00"><span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></div></div></div>
+<div class="app"><aside class="side"><a class="logo" href="#accounting" aria-label="Hungry Hub"><img src="logo.jpg" alt="Hungry Hub" width="112" height="112"></a><div class="lbl"><span class="th">เมนูหลัก</span><span class="en">Main menu</span></div><a class="mi" data-v="daily" href="#daily"><span class="ic">📬</span><span><span class="th">สรุปอีเมลประจำวัน</span><span class="en">Daily email summary</span></span></a><a class="mi" data-v="accounting" href="#accounting"><span class="ic">📊</span><span><span class="th">ทีมบัญชี</span><span class="en">Accounting team</span></span></a><div class="sfoot">Hungry Hub · <span class="th">แดชบอร์ดภายใน</span><span class="en">Internal dashboard</span></div></aside><div class="col">
+<div class="topbar"><div class="crumb"><span class="th">การเงินและบัญชี</span><span class="en">Accounting &amp; Finance</span> › <b class="crumbv" data-v="daily" hidden><span class="th">สรุปอีเมลประจำวัน</span><span class="en">Daily email summary</span></b><b class="crumbv" data-v="accounting" hidden><span class="th">ทีมบัญชี</span><span class="en">Accounting team</span></b></div><div class="top-act"><span class="clock" id="clock" aria-live="off"></span><div class="langsw" role="group" aria-label="Language / ภาษา"><button type="button" data-l="th">TH</button><button type="button" data-l="en">EN</button></div><button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false" title="โหมดมืด/สว่าง · Dark / light"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button></div></div>
+<section class="view" id="view-daily" hidden><div class="vload"><span class="th">กำลังโหลด…</span><span class="en">Loading…</span></div></section>
+<section class="view" id="view-accounting" hidden>
 <main class="wrap">
 <div class="kpis k4"><div class="kpi k-red"><div class="ico">⏳</div><div class="n" data-k="un"></div><div class="l"><span class="th">ยังไม่ได้ตอบ</span><span class="en">Not replied</span></div><div class="s"><span class="th">เร่งด่วน (รอ &gt;1 วัน) </span><span class="en">Urgent (waiting &gt;1 day) </span><span data-k="red"></span><span class="th"> เรื่อง</span><span class="en"> </span></div></div><div class="kpi k-green"><div class="ico">✅</div><div class="n" data-k="ans"></div><div class="l"><span class="th">ตอบแล้ว/ปิดเคส (<span data-rng="th">วันนี้</span>)</span><span class="en">Replied / closed (<span data-rng="en">today</span>)</span></div><div class="s"><span class="th">นับจากวันที่ทีมบัญชีตอบ หรือวันที่ปิดด้วยมือ</span><span class="en">Counted by the date accounting replied or it was closed manually</span></div></div><div class="kpi k-purple"><div class="ico">📎</div><div class="n" data-k="fyi"></div><div class="l"><span class="th">FYI ไม่ต้องตอบ (<span data-rng="th">วันนี้</span>)</span><span class="en">FYI, no reply needed (<span data-rng="en">today</span>)</span></div><div class="s"><span class="th">เอกสาร/แจ้งเตือน ไม่มีคำถาม</span><span class="en">Documents/notifications, no question</span></div></div><div id="kpiLine" class="kpi k-orange"><div class="ico">💬</div><div class="n">4</div><div class="l"><span class="th">LINE OA ยังไม่ตอบ</span><span class="en">LINE OA not replied</span></div><div class="s"><span class="th">ยังไม่อ่าน 3 · อ่านแล้วยังไม่ตอบ 1</span><span class="en">Unread 3 · Read, not replied 1</span></div></div></div>
 <div class="viewtabs" id="viewtabs" role="tablist"><button type="button" class="active" data-v="email"><span class="th">อีเมล</span><span class="en">Email</span></button><button type="button" data-v="line">LINE OA <span class="cnt">4</span></button></div>
@@ -209,7 +212,8 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 <p class="disc"><span class="th">แสดงเฉพาะชื่อที่แสดงใน LINE, เวลาแบบสัมพัทธ์ และสถานะ — ไม่แสดงข้อความหรือเบอร์โทร · เรียงตามรอนานที่สุดก่อน · ลิงก์ “เปิดแชท ↗” ต้องล็อกอิน LINE Official Account Manager ของทีม</span><span class="en">Only the LINE display name, a relative time label and the status are shown — no message text or phone numbers · sorted by longest waiting first · “Open chat ↗” links need the team&#x27;s LINE Official Account Manager login</span></p>
 </section>
 </main>
-<footer><a href="index.html" style="color:inherit"><span class="th">← กลับแดชบอร์ดหลัก</span><span class="en">← Back to main dashboard</span></a> · <span class="th">ทีมบัญชี</span><span class="en">Accounting</span> · <span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></footer>
+<footer><span class="th">ทีมบัญชี</span><span class="en">Accounting</span> · <span class="th">ข้อมูล ณ 1 ต.ค. 2569 12:50 น.</span><span class="en">Data as of 1 Oct 2026 12:50</span></footer>
+</section>
 </div></div>
 <script>
 (function(){
@@ -381,6 +385,48 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 </script>
 <script>
 (function(){
+  var tabs=document.getElementById('viewtabs');if(!tabs)return;
+  var em=document.getElementById('viewEmail'),ln=document.getElementById('viewLine');
+  function show(v){em.style.display=v==='line'?'none':'';ln.style.display=v==='line'?'':'none';
+    [].forEach.call(tabs.querySelectorAll('button'),function(b){b.classList.toggle('active',b.dataset.v===v)});
+    try{history.replaceState(null,'',v==='line'?'#line':'#accounting')}catch(x){}}
+  [].forEach.call(tabs.querySelectorAll('button'),function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
+  var k=document.getElementById('kpiLine');if(k)k.addEventListener('click',function(){show('line');tabs.scrollIntoView({behavior:'smooth',block:'start'})});
+  if(location.hash==='#line')show('line');
+  var st=document.getElementById('lineStale');if(st){var u=Date.parse(st.dataset.updated);if(u&&Date.now()-u>24*3600*1000)st.style.display='block';}
+})();
+</script>
+<script>
+(function(){
+  var h=document.documentElement,VIEWS=["daily", "accounting"],DEF=h.getAttribute('data-default'),cur=null,loaded={};
+  var T={"daily": ["สรุปอีเมลประจำวัน 1 ต.ค. 2569", "Daily email summary – 1 Oct 2026"], "accounting": ["ทีมบัญชี · ติดตามการตอบอีเมล", "Accounting · Email reply tracker"]};
+  function viewFromHash(){var x=(location.hash||'').replace('#','').split('/')[0];if(x==='line')x='accounting';return VIEWS.indexOf(x)>=0?x:null}
+  function setTitle(v){h.setAttribute('data-title-th',T[v][0]);h.setAttribute('data-title-en',T[v][1]);document.title=T[v][h.getAttribute('data-lang')==='en'?1:0]}
+  function loadDaily(){
+    if(loaded.daily)return;loaded.daily=true;var box=document.getElementById('view-daily');
+    var sc=document.createElement('script');sc.src='daily-view.js?v='+encodeURIComponent(h.getAttribute('data-build')||'');
+    sc.onerror=function(){loaded.daily=false;box.innerHTML='<div class="vload">โหลดไม่สำเร็จ / Failed to load — <a href="#daily" onclick="location.reload()">retry</a></div>'};
+    document.body.appendChild(sc);
+  }
+  function show(v,push){
+    if(VIEWS.indexOf(v)<0)v=DEF;cur=v;
+    VIEWS.forEach(function(x){var el=document.getElementById('view-'+x);if(el)el.hidden=(x!==v)});
+    [].forEach.call(document.querySelectorAll('.side .mi'),function(a){var on=a.dataset.v===v;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    [].forEach.call(document.querySelectorAll('.crumbv'),function(c){c.hidden=(c.dataset.v!==v)});
+    setTitle(v);if(v==='daily')loadDaily();
+    if(push&&viewFromHash()!==v&&!(v==='accounting'&&location.hash==='#line')){try{history.pushState(null,'','#'+v)}catch(x){location.hash=v}}
+    window.scrollTo(0,0);
+  }
+  [].forEach.call(document.querySelectorAll('.side .mi,.side .logo'),function(a){a.addEventListener('click',function(ev){var v=(a.getAttribute('href')||'').replace('#','');if(VIEWS.indexOf(v)<0)return;ev.preventDefault();show(v,true)})});
+  window.addEventListener('popstate',function(){show(viewFromHash()||DEF,false)});
+  window.addEventListener('hashchange',function(){var v=viewFromHash();if(v&&v!==cur)show(v,false)});
+  document.addEventListener('langchange',function(){if(cur)document.title=T[cur][h.getAttribute('data-lang')==='en'?1:0]});
+  show(viewFromHash()||DEF,false);
+  if(!location.hash||!viewFromHash()){try{history.replaceState(null,'','#'+cur)}catch(x){}}
+})();
+</script>
+<script>
+(function(){
   var h=document.documentElement;
   var tsw=document.getElementById('themeSw');
   function setTheme(t,save){h.setAttribute('data-theme',t);if(tsw){tsw.setAttribute('aria-checked',t==='light'?'true':'false');
@@ -404,24 +450,11 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 })();
 </script>
 <script>
-(function(){
-  var tabs=document.getElementById('viewtabs');if(!tabs)return;
-  var em=document.getElementById('viewEmail'),ln=document.getElementById('viewLine');
-  function show(v){em.style.display=v==='line'?'none':'';ln.style.display=v==='line'?'':'none';
-    [].forEach.call(tabs.querySelectorAll('button'),function(b){b.classList.toggle('active',b.dataset.v===v)});
-    try{history.replaceState(null,'',v==='line'?'#line':location.pathname+location.search)}catch(x){}}
-  [].forEach.call(tabs.querySelectorAll('button'),function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
-  var k=document.getElementById('kpiLine');if(k)k.addEventListener('click',function(){show('line');tabs.scrollIntoView({behavior:'smooth',block:'start'})});
-  if(location.hash==='#line')show('line');
-  var st=document.getElementById('lineStale');if(st){var u=Date.parse(st.dataset.updated);if(u&&Date.now()-u>24*3600*1000)st.style.display='block';}
-})();
-</script>
-<script>
-(function(){var h=document.documentElement,c=document.getElementById('clock'),g=document.getElementById('greetTxt');
+(function(){var h=document.documentElement,c=document.getElementById('clock'),gs=document.querySelectorAll('.greetTxt');
   function tick(){var en=h.getAttribute('data-lang')==='en',d=new Date(),z='Asia/Bangkok';
     if(c)c.textContent=new Intl.DateTimeFormat(en?'en-GB':'th-TH',{timeZone:z,weekday:'short',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d);
-    if(g){var hr=+new Intl.DateTimeFormat('en-GB',{timeZone:z,hour:'2-digit',hour12:false}).format(d)%24;
-      g.textContent=en?(hr<12?'Good morning':hr<17?'Good afternoon':'Good evening'):(hr<12?'สวัสดีตอนเช้า':hr<17?'สวัสดีตอนบ่าย':'สวัสดีตอนเย็น')}}
+    if(gs.length){var hr=+new Intl.DateTimeFormat('en-GB',{timeZone:z,hour:'2-digit',hour12:false}).format(d)%24;
+      var gt=en?(hr<12?'Good morning':hr<17?'Good afternoon':'Good evening'):(hr<12?'สวัสดีตอนเช้า':hr<17?'สวัสดีตอนบ่าย':'สวัสดีตอนเย็น');[].forEach.call(gs,function(g){g.textContent=gt})}}
   tick();setInterval(tick,1000);document.addEventListener('langchange',tick);})();
 </script>
 </body>
