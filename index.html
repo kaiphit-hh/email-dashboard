@@ -72,13 +72,15 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:12px}
 #refreshMsg{font-size:12px;opacity:.95;max-width:340px}#refreshMsg:empty{display:none}
 #refreshMsg.err{color:#ffd0d0;font-weight:600}
 .fresh{font-size:12px;opacity:.9;white-space:nowrap}
+.navbtn{display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap;color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
+.navbtn:hover{background:rgba(255,255,255,.28)}
 @media(max-width:800px){.hdr{flex-wrap:wrap;gap:6px}.hdr-act{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:8px;text-align:left}header h1{font-size:20px}header p{font-size:12.5px}}
 @media print{#refreshBtn,#refreshMsg{display:none}nav{display:none}header{background:#243b8f}}
 </style>
 </head>
 <body>
 <header><div class="wrap hdr"><div><h1>สรุปอีเมลประจำวัน 1 ต.ค. 2569</h1><p>(ข้อมูลถึงประมาณ 11:06 น.)</p></div>
-<div class="hdr-act"><button id="refreshBtn" type="button">อัปเดตตอนนี้</button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T11:06:00+07:00">ข้อมูล ณ 1 ต.ค. 2569 11:06 น.</div></div></div></header>
+<div class="hdr-act"><a class="navbtn" href="accounting.html">ทีมบัญชี</a><button id="refreshBtn" type="button">อัปเดตตอนนี้</button><div id="refreshMsg" role="status" aria-live="polite"></div><div class="fresh" id="fresh" data-updated="2026-10-01T11:06:00+07:00">ข้อมูล ณ 1 ต.ค. 2569 11:06 น.</div></div></div></header>
 <nav><div class="wrap"><a href="#direct">ส่งถึงคุณโดยตรง</a><a href="#chart">สัดส่วนอีเมล</a><a href="#pending">ยังไม่ได้ตอบ</a><a href="#info">แจ้งข้อมูลให้ทราบ (ไม่ต้องตอบ)</a><a href="#backlog">ค้างจากช่วง 7 วันที่ผ่านมา</a><a href="#topics">หัวข้อที่ติดต่อมา</a></div></nav>
 <main class="wrap">
 <div class="kpis"><div class="kpi k-blue"><div class="ico">✉</div><div class="n">~54</div><div class="l">อีเมลเข้าทั้งหมด</div><div class="s" title="ฉบับ (~41 เธรด · ตั้งแต่เช้าถึงตอนนี้)">ฉบับ (~41 เธรด · ตั้งแต่เช้าถึงตอนนี้)</div></div><div class="kpi k-red"><div class="ico">★</div><div class="n">5</div><div class="l">ส่งถึงคุณโดยตรง</div></div><div class="kpi k-purple"><div class="ico">◆</div><div class="n">1</div><div class="l">โปรโมชัน/สแปม</div><div class="s" title="PEAK อัปเดตฟีเจอร์ (โฟลเดอร์ Spam ตรวจไม่ได้)">PEAK อัปเดตฟีเจอร์ (โฟลเดอร์ Spam ตรวจไม่ได้)</div></div><div class="kpi k-green"><div class="ico">⚙</div><div class="n">~33</div><div class="l">เมลอัตโนมัติ</div><div class="s" title="Booking Report ร้านพาร์ทเนอร์ ~22, Xendit/GB Prime Pay แจ้งรับชำระ ~10, Omise receipts ก.ย.">Booking Report ร้านพาร์ทเนอร์ ~22, Xendit/GB Prime Pay แจ้งรับชำระ ~10, Omise receipts ก.ย.</div></div></div>
@@ -106,7 +108,7 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:12px}
 </script>
 <script>
 (function(){
-  var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-10-01T11:06:00+07:00"};
+  var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-10-01T11:06:00+07:00", "metaKey": "updated_at"};
   var btn=document.getElementById('refreshBtn'),msg=document.getElementById('refreshMsg');
   if(!btn)return;
   var KEY='dash_refresh_until',COOL=5*60*1000,timer=null,poll=null;
@@ -125,7 +127,7 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:12px}
     poll=setInterval(function(){
       if(Date.now()-t0>8*60*1000){clearInterval(poll);poll=null;return;}
       fetch('meta.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
-        if(m&&m.updated_at&&m.updated_at!==R.updatedAt){say('มีข้อมูลใหม่ กำลังโหลดหน้าใหม่...');setTimeout(function(){location.reload()},600);}
+        if(m&&m[R.metaKey]&&m[R.metaKey]!==R.updatedAt){say('มีข้อมูลใหม่ กำลังโหลดหน้าใหม่...');setTimeout(function(){location.reload()},600);}
       }).catch(function(){});
     },20000);
   }
