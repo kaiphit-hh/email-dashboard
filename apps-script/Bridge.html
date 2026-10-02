@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base target="_top">
+  <title>Auto Email</title>
+  <style>
+    body { margin: 0; font: 15px/1.5 "Noto Sans Thai", Tahoma, sans-serif; background: #f4f6fa; color: #1c2333; }
+    main { max-width: 460px; margin: 24px auto; background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    p { margin: 0 0 10px; }
+    .muted { color: #55627d; font-size: 13px; }
+    button { font: inherit; font-weight: 700; border-radius: 8px; padding: 8px 14px; cursor: pointer; border: 1px solid #d9dfec; background: #fff; }
+    button.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .row { display: flex; gap: 8px; margin-top: 14px; }
+    .err { color: #b91c1c; font-weight: 700; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Auto Email</h1>
+  <p id="summary">กำลังอ่านคำขอ…</p>
+  <p class="muted">แบบร่างถูกสร้างใน Gmail ของบัญชีที่กดเท่านั้น และไม่ถูกส่ง</p>
+  <p id="error" class="err" hidden></p>
+  <div class="row">
+    <button type="button" class="primary" id="go" disabled>ยืนยัน</button>
+    <button type="button" id="cancel">ยกเลิก</button>
+  </div>
+</main>
+<script>
+(function () {
+  var ALLOWED = <?!= allowedOriginsJson ?>;
+  var summary = document.getElementById("summary");
+  var error = document.getElementById("error");
+  var go = document.getElementById("go");
+  var request = null;
+
+  function showError(text) {
+    error.hidden = false;
+    error.textContent = text;
+    go.disabled = true;
+  }
+
+  try { request = JSON.parse(window.name || ""); }
+  catch (err) { request = null; }
+  document.getElementById("cancel").addEventListener("click", function () {
+    if (!request || ALLOWED.indexOf(String(request.parent || "")) < 0) { window.close(); return; }
+    finish(false, { ok: false, sent: false, error: "cancelled", message: "ยกเลิกแล้ว ไม่ได้สร้างหรือส่งอีเมล" });
+  });
+
+  if (!request || request.source !== "hh-auto-email" || !request.id || !request.op) {
+    showError("เปิดหน้านี้จากปุ่มบนหน้า Auto Email");
+    summary.textContent = "ไม่พบคำขอ";
+    return;
+  }
+
+  function originOf(url) {
+    var a = document.createElement("a");
+    a.href = url;
+    if (!a.protocol || a.protocol === "about:" || !a.host) return "";
+    return a.protocol + "//" + a.host;
+  }
+  var parentOrigin = String(request.parent || "");
+  if (ALLOWED.indexOf(parentOrigin) < 0) {
+    showError("โดเมนของหน้าเว็บนี้ยังไม่อยู่ใน ALLOWED_ORIGINS");
+    return;
+  }
+  var returnUrl = "";
+  if (request.returnUrl) {
+    var back = originOf(request.returnUrl);
+    var path = "";
+    try { path = new URL(request.returnUrl).pathname; } catch (err) { path = ""; }
+    if (back === parentOrigin && /\/auto-email-bridge\.html$/.test(path) && request.returnUrl.indexOf("?") === -1) {
+      returnUrl = request.returnUrl.split("#")[0];
+    }
+  }
+
+  var labels = { list: "ดึงกฎจาก Google Sheet", save: "บันทึกกฎลง Google Sheet", "delete": "ลบกฎจาก Google Sheet", draft: "สร้างแบบร่างตอบกลับใน Gmail ของคุณ" };
+  summary.textContent = labels[request.op] || "คำขอไม่รู้จัก";
+  if (request.op === "draft") {
+    var p = request.payload || {};
+    summary.textContent = "สร้างแบบร่างตอบกลับถึง " + (p.sender || "ผู้ส่ง") + " เรื่อง “" + (p.originalSubject || p.subject || "") + "” โดยไม่ส่งออก";
+  } else if (request.op === "save") {
+    var n = (request.payload && request.payload.rules && request.payload.rules.length) || 0;
+    summary.textContent = "บันทึกกฎ " + n + " ข้อลงชีตที่ใช้ร่วมกัน";
+  }
+  if (!labels[request.op]) { showError("คำขอไม่ถูกต้อง"); return; }
+  go.disabled = false;
+
+  function finish(ok, result) {
+    var message = {
+      source: "hh-auto-email-result",
+      id: request.id,
+      ok: !!ok,
+      result: result || null,
+      message: result && result.message ? result.message : ""
+    };
+    var posted = false;
+    if (window.opener && !window.opener.closed) {
+      try {
+        window.opener.postMessage(message, parentOrigin);
+        posted = true;
+      } catch (err) { posted = false; }
+    }
+    if (posted) { window.close(); return; }
+    if (!returnUrl) {
+      showError("ส่งผลกลับไปที่หน้าเว็บไม่ได้ และไม่มี return URL ที่อนุญาต");
+      return;
+    }
+    var packed = encodeURIComponent(JSON.stringify(message));
+    if (packed.length > 120000) {
+      showError("ผลลัพธ์ใหญ่เกินกว่าจะส่งกลับทางหน้าเว็บ");
+      return;
+    }
+    location.replace(returnUrl + "#hh=" + packed);
+  }
+
+  go.addEventListener("click", function () {
+    go.disabled = true;
+    summary.textContent = "กำลังทำให้บัญชีของคุณ…";
+    var runner = google.script.run
+      .withSuccessHandler(function (res) { finish(true, res); })
+      .withFailureHandler(function (err) {
+        finish(false, { ok: false, sent: false, error: "server", message: String(err && err.message || err || "ทำไม่สำเร็จ") });
+      });
+    if (request.op === "list") runner.apiListRules();
+    else if (request.op === "save") runner.apiSaveRules(request.payload || {});
+    else if (request.op === "delete") runner.apiDeleteRule(request.payload || {});
+    else if (request.op === "draft") runner.apiCreateDraft(request.payload || {});
+  });
+})();
+</script>
+</body>
+</html>

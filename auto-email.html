@@ -149,6 +149,12 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
 @media(max-width:420px){
   .save-actions{grid-template-columns:1fr}
 }
+body:not(.remote) .only-remote{display:none}
+body.remote .only-local{display:none}
+.remote-bar{background:var(--banner-bg);color:var(--banner-ink);border:1px solid var(--banner-line);border-radius:8px;padding:10px 12px;margin:0 0 14px}
+.remote-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:8px}
+.thread-field{display:grid;gap:4px;font-size:12.5px;font-weight:700;flex:1;min-width:220px}
+.thread-field input{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 10px;font:inherit;font-size:14px;font-weight:500}
 </style>
 </head>
 <body>
@@ -156,7 +162,7 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   <div class="wrap hdr">
     <div>
       <h1><span class="th">ทีมบัญชี · Auto Email</span><span class="en">Accounting · Auto Email</span></h1>
-      <p><span class="th">กฎดราฟตอบกลับสำหรับ finance@ / finance.sg@ / finance.my@ · ยังไม่เชื่อมต่อ Gmail</span><span class="en">Reply-draft rules for finance@ / finance.sg@ / finance.my@ · Gmail is not connected</span></p>
+      <p><span class="only-local"><span class="th">กฎดราฟตอบกลับสำหรับ finance@ / finance.sg@ / finance.my@ · ยังไม่เชื่อมต่อ Gmail</span><span class="en">Reply-draft rules for finance@ / finance.sg@ / finance.my@ · Gmail is not connected</span></span><span class="only-remote"><span class="th">กฎดราฟตอบกลับสำหรับ finance@ / finance.sg@ / finance.my@ · แบบร่างอยู่ใน Gmail ของคนที่กด และไม่ถูกส่ง</span><span class="en">Reply-draft rules for finance@ / finance.sg@ / finance.my@ · the draft stays in the clicker’s Gmail and is not sent</span></span></p>
     </div>
     <div class="hdr-act">
       <button type="button" class="themesw" id="themeSw" role="switch" aria-checked="false"><span class="trk"><i class="sun">☀️</i><i class="moon">🌙</i><span class="knob"></span></span><span class="lt-d"><span class="th">โหมดมืด</span><span class="en">Dark</span></span><span class="lt-l"><span class="th">โหมดสว่าง</span><span class="en">Light</span></span></button>
@@ -167,6 +173,16 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   </div>
 </header>
 <main class="wrap">
+  <div id="remoteBar" class="remote-bar only-remote">
+    <p id="remoteStatus"><span class="th">โหมดทีม: ปุ่มดราฟใช้กฎบน Google Sheet ไม่ใช่กฎที่ยังไม่บันทึกบนจอ กดเชื่อมต่อเพื่อดึงกฎ หน้าต่าง Google จะขอให้ยืนยันสิทธิ์</span><span class="en">Team mode: the draft button uses the Google Sheet rules, not unsaved edits on screen. Press Connect to load them. A Google window asks you to confirm access.</span></p>
+    <div class="remote-actions">
+      <label class="thread-field"><span class="th">รหัสเธรดหรือข้อความ Gmail (ว่างไว้ได้)</span><span class="en">Gmail thread or message id (optional)</span>
+        <input id="threadOverride" type="text" maxlength="32" autocomplete="off" spellcheck="false" placeholder="18f3ab90c1d2e3f4" inputmode="text">
+      </label>
+      <button type="button" class="btn primary" id="connectBtn"><span class="th">เชื่อมต่อชีต</span><span class="en">Connect sheet</span></button>
+    </div>
+    <p class="hint"><span class="th">อีเมลในตารางเป็นตัวอย่าง จึงไม่มีเธรดจริง ถ้าว่างไว้ ระบบจะค้นจากหัวข้อในกล่องของคนที่กด ถ้าไม่พบจะไม่สร้างแบบร่างและไม่ส่ง</span><span class="en">Rows in the table are samples, so they have no real thread. Leave the id empty to search your mailbox by subject. If nothing matches, no draft is created and nothing is sent.</span></p>
+  </div>
   <div class="top">
     <a class="btn" href="accounting.html"><span class="th">หน้ารายการอีเมล</span><span class="en">Email list</span></a>
     <span class="btn current" aria-current="page">⚙ Auto Email</span>
@@ -176,7 +192,8 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     <div class="row">
       <h2 id="sampleTitle"><span class="th">อีเมลตัวอย่าง</span><span class="en">Sample emails</span> <span class="count" id="matchCount"></span> <span class="pill"><span class="th">ข้อมูลตัวอย่าง</span><span class="en">Sample data</span></span></h2>
     </div>
-    <p class="banner"><span class="th">ตารางนี้เป็นข้อมูลสมมติสำหรับลองกฎ (เช่น ใบกำกับภาษีของ Centara, การวางบิล, และยอดค้างของสิงคโปร์) ไม่ได้ดึงจาก Gmail และกดปุ่มแล้วจะไม่ส่งอีเมล</span><span class="en">This table is fake data for trying the rules (a Centara e-Tax question, a billing question, and a Singapore overdue-payment note). It is not loaded from Gmail, and nothing here sends mail.</span></p>
+    <p class="banner only-local"><span class="th">ตารางนี้เป็นข้อมูลสมมติสำหรับลองกฎ (เช่น ใบกำกับภาษีของ Centara, การวางบิล, และยอดค้างของสิงคโปร์) ไม่ได้ดึงจาก Gmail และกดปุ่มแล้วจะไม่ส่งอีเมล</span><span class="en">This table is fake data for trying the rules (a Centara e-Tax question, a billing question, and a Singapore overdue-payment note). It is not loaded from Gmail, and nothing here sends mail.</span></p>
+    <p class="banner only-remote"><span class="th">ตารางนี้ยังเป็นข้อมูลสมมติ ไม่ได้ดึงรายชื่อจาก Gmail เมื่อต่อเว็บแอปแล้ว ปุ่มดราฟจะสร้างแบบร่างตอบกลับในกล่องของคนที่กดเท่านั้น และไม่มีทางส่งออก</span><span class="en">This table is still sample data, not a live Gmail list. With the web app connected, Draft creates a reply draft only in the clicker’s mailbox. There is no send.</span></p>
     <div class="tblwrap">
       <table class="demo">
         <thead>
@@ -202,10 +219,11 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
       <button type="button" class="btn primary" id="addRule"><span class="th">+ เพิ่มกฎ</span><span class="en">+ Add rule</span></button>
     </div>
     <p class="hint"><span class="th">เมื่ออีเมลที่เข้ามามี keyword ตรงเป๊ะ และประเทศตรงกับที่เลือก ระบบจะแสดงปุ่ม «ดราฟอีเมล» ข้างแถวนั้น</span><span class="en">When an incoming email contains a keyword exactly, and its country is selected, a Draft email button is shown on that row.</span></p>
+    <p class="hint only-remote"><span class="th">ปุ่มดราฟใช้กฎที่บันทึกบนชีตแล้ว ตารางตัวอย่างใช้กฎที่อยู่บนจอ รวมถึงที่ยังไม่กดบันทึก</span><span class="en">The draft button uses rules already saved on the sheet. The sample table uses the rules on screen, including edits you have not saved yet.</span></p>
     <div class="legend" id="countryLegend"></div>
     <div id="rules"></div>
     <div class="savebar">
-      <div class="note"><span class="th">💡 เมื่อพนักงานกด «ดราฟอีเมล» ระบบจะสร้าง draft ใน Gmail ของคนที่กดเท่านั้น และไม่ส่งออกเอง หน้านี้เป็นตัวอย่าง จึงยังไม่เชื่อมต่อ Gmail</span><span class="en">💡 Clicking Draft email would create a draft only in the clicker’s own Gmail and would not send it. This page only previews that step and is not connected to Gmail.</span></div>
+      <div class="note"><span class="only-local"><span class="th">💡 เมื่อพนักงานกด «ดราฟอีเมล» ระบบจะสร้าง draft ใน Gmail ของคนที่กดเท่านั้น และไม่ส่งออกเอง หน้านี้เป็นตัวอย่าง จึงยังไม่เชื่อมต่อ Gmail</span><span class="en">💡 Clicking Draft email would create a draft only in the clicker’s own Gmail and would not send it. This page only previews that step and is not connected to Gmail.</span></span><span class="only-remote"><span class="th">💡 กด «ดราฟอีเมล» แล้วจะเปิดหน้าต่าง Google ให้ยืนยัน แบบร่างถูกสร้างใน Gmail ของคนที่กด เป็นการตอบในเธรดเดิม และไม่ถูกส่ง</span><span class="en">💡 Draft email opens a Google window for you to confirm. The draft is created in the clicker’s Gmail, as a reply on the original thread, and it is not sent.</span></span></div>
       <div class="save-actions">
         <button type="button" class="btn" id="importBtn"><span class="th">นำเข้า JSON</span><span class="en">Import JSON</span></button>
         <button type="button" class="btn" id="exportBtn"><span class="th">ส่งออก JSON</span><span class="en">Export JSON</span></button>
@@ -218,7 +236,7 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
 <footer>
   <a href="accounting.html"><span class="th">← หน้ารายการอีเมล</span><span class="en">← Email list</span></a>
   · <span class="th">ทีมบัญชี</span><span class="en">Accounting</span>
-  · <span class="th">เก็บกฎในเบราว์เซอร์นี้เท่านั้น</span><span class="en">Rules stay in this browser only</span>
+  · <span class="only-local"><span class="th">เก็บกฎในเบราว์เซอร์นี้เท่านั้น</span><span class="en">Rules stay in this browser only</span></span><span class="only-remote"><span class="th">กฎร่วมกันอยู่บน Google Sheet</span><span class="en">Shared rules live on a Google Sheet</span></span>
 </footer>
 
 <div id="modal" class="modal" hidden>
@@ -373,12 +391,127 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     ];
   }
 
+  /* Paste the deployed /exec URL here after the steps in apps-script/README.md.
+     Leave it empty to keep this page in preview mode (localStorage, no Gmail). */
+  var WEB_APP_URL = "";
+  var SHEET_CACHE_KEY = "hh_auto_email_sheet_cache";
+  var BRIDGE_RESULT_KEY = "hh_auto_email_bridge_result";
+  var bridgePending = null;
+  var bridgeTimer = 0;
+
+  function webAppUrl() {
+    var constant = String(WEB_APP_URL || "").trim();
+    if (/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(constant)) return constant;
+    var host = "";
+    try { host = location.hostname; } catch (e) { host = ""; }
+    if (host !== "localhost" && host !== "127.0.0.1") return "";
+    var q = "";
+    try { q = new URLSearchParams(location.search).get("webapp") || ""; } catch (e2) { q = ""; }
+    if (/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(q)) return q;
+    return "";
+  }
+  function isRemote() { return !!webAppUrl(); }
+
+  function bridgeReturnUrl() {
+    var path = "/";
+    try { path = location.pathname || "/"; } catch (e) { path = "/"; }
+    return location.origin + path.replace(/[^/]*$/, "") + "auto-email-bridge.html";
+  }
+
+  function explainRemoteError(err) {
+    if (!err) return tx("ทำไม่สำเร็จ และไม่ได้ส่งอีเมล", "That did not work, and nothing was sent");
+    var code = err.error || err.message || "";
+    if (code === "popup_blocked") return tx("เบราว์เซอร์บล็อกหน้าต่าง ให้กดปุ่มอีกครั้งแล้วอนุญาตป๊อปอัป", "The browser blocked the window. Press the button again and allow pop-ups.");
+    if (code === "timeout") return tx("หมดเวลายืนยันในหน้าต่าง Google จึงไม่ได้สร้างหรือส่งอีเมล", "The Google window timed out, so nothing was created or sent");
+    if (code === "busy") return tx("มีคำขอค้างอยู่ ปิดหน้าต่าง Google ที่เปิดอยู่ก่อน", "A request is still open. Close the Google window first.");
+    if (err.message) return String(err.message);
+    return tx("ทำไม่สำเร็จ และไม่ได้ส่งอีเมล", "That did not work, and nothing was sent");
+  }
+
+  function acceptBridgeMessage(data, origin) {
+    if (!bridgePending || !data || data.source !== "hh-auto-email-result") return;
+    if (data.id !== bridgePending.id) return;
+    if (origin) {
+      var host = "";
+      try { host = new URL(origin).hostname; } catch (e) { host = ""; }
+      var fromGoogle = origin === "https://script.google.com" || host === "googleusercontent.com" || /\.googleusercontent\.com$/.test(host);
+      if (!fromGoogle) return;
+    }
+    var result = data.result;
+    if (!result || typeof result !== "object") {
+      result = { ok: false, sent: false, error: "empty", message: data.message || "" };
+    }
+    if (result.sent === true) {
+      result = { ok: false, sent: false, error: "refused_sent", message: tx("ปฏิเสธผลลัพธ์ที่บอกว่าส่งอีเมลแล้ว", "Refused a result that claimed mail was sent") };
+    }
+    var pending = bridgePending;
+    bridgePending = null;
+    clearTimeout(bridgeTimer);
+    pending.settle(result);
+  }
+
+  function callRemote(op, payload) {
+    return new Promise(function (resolve, reject) {
+      var url = webAppUrl();
+      if (!url) {
+        reject({ ok: false, sent: false, error: "no_url", message: tx("ยังไม่ได้ตั้งที่อยู่เว็บแอป", "The web app URL is not set") });
+        return;
+      }
+      if (bridgePending) {
+        reject({ ok: false, sent: false, error: "busy", message: explainRemoteError({ error: "busy" }) });
+        return;
+      }
+      var id = "q" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      var request = {
+        source: "hh-auto-email",
+        id: id,
+        op: op,
+        payload: payload || {},
+        parent: location.origin,
+        returnUrl: bridgeReturnUrl()
+      };
+      var popup = null;
+      try { popup = window.open("about:blank", "hhAutoEmail"); } catch (e) { popup = null; }
+      if (!popup) {
+        reject({ ok: false, sent: false, error: "popup_blocked", message: explainRemoteError({ error: "popup_blocked" }) });
+        return;
+      }
+      bridgePending = { id: id, settle: function (result) { resolve(result); } };
+      bridgeTimer = setTimeout(function () {
+        if (!bridgePending || bridgePending.id !== id) return;
+        bridgePending = null;
+        try { popup.close(); } catch (e2) {}
+        reject({ ok: false, sent: false, error: "timeout", message: explainRemoteError({ error: "timeout" }) });
+      }, 180000);
+      try { popup.name = JSON.stringify(request); }
+      catch (err) {
+        bridgePending = null;
+        clearTimeout(bridgeTimer);
+        try { popup.close(); } catch (e3) {}
+        reject({ ok: false, sent: false, error: "popup_blocked", message: explainRemoteError({ error: "popup_blocked" }) });
+        return;
+      }
+      popup.location.href = url + "?page=bridge";
+    });
+  }
+
+  window.addEventListener("message", function (ev) {
+    acceptBridgeMessage(ev.data, ev.origin);
+  });
+  window.addEventListener("storage", function (ev) {
+    if (ev.key !== BRIDGE_RESULT_KEY || !ev.newValue) return;
+    var wrapped;
+    try { wrapped = JSON.parse(ev.newValue); } catch (e) { return; }
+    if (wrapped && wrapped.data) acceptBridgeMessage(wrapped.data, "");
+  });
+
   /* ============================================================
      ADAPTERS
      The page talks only to StoragePort and DraftPort.
-     Later: point StoragePort at a Google Sheet via Apps Script,
-     and point DraftPort at a script that creates a draft in the
-     signed-in clicker's Gmail. Do not send mail from either port.
+     With WEB_APP_URL empty, rules stay in localStorage and the
+     draft button only previews. With a URL, rules are shared on
+     a Sheet and the draft is created in the clicker's Gmail.
+     Neither port sends mail.
      ============================================================ */
 
   var LocalStorageAdapter = {
@@ -404,8 +537,47 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   };
 
   var StoragePort = {
-    load: function () { return LocalStorageAdapter.load(); },
-    save: function (doc) { return LocalStorageAdapter.save(doc); }
+    load: function () {
+      if (!isRemote()) return LocalStorageAdapter.load();
+      return new Promise(function (resolve, reject) {
+        var raw;
+        try { raw = localStorage.getItem(SHEET_CACHE_KEY); }
+        catch (e) { reject(e); return; }
+        if (!raw) { resolve(null); return; }
+        try { resolve(JSON.parse(raw)); }
+        catch (e2) { reject(new Error("parse")); }
+      });
+    },
+    save: function (doc) {
+      if (!isRemote()) return LocalStorageAdapter.save(doc);
+      var rules = (doc.rules || []).map(function (r) {
+        return {
+          id: r.id,
+          name: r.name,
+          enabled: !!r.enabled,
+          keywords: r.keywords,
+          template: r.template,
+          countries: r.countries,
+          language: r.language
+        };
+      });
+      return callRemote("save", { rules: rules }).then(function (res) {
+        if (!res || res.ok === false || res.sent === true) {
+          var err = new Error((res && (res.message || res.error)) || "save_failed");
+          err.result = res;
+          throw err;
+        }
+        try {
+          localStorage.setItem(SHEET_CACHE_KEY, JSON.stringify({
+            rules: res.rules || rules,
+            countries: doc.countries,
+            email: res.email || "",
+            savedAt: new Date().toISOString()
+          }));
+        } catch (e) {}
+        return res;
+      });
+    }
   };
 
   /* Preview only. Never opens a network call and never sends. */
@@ -426,11 +598,43 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     }
   };
 
+  function threadOverrideValue() {
+    var node = document.getElementById("threadOverride");
+    return node ? String(node.value || "").trim() : "";
+  }
+
   var DraftPort = {
-    createDraft: function (request) { return PreviewDraftAdapter.createDraft(request); }
+    createDraft: function (request) {
+      if (!isRemote()) return PreviewDraftAdapter.createDraft(request);
+      var rawId = threadOverrideValue();
+      var payload = {
+        originalSubject: request.originalSubject || "",
+        body: request.incomingBody || "",
+        sender: request.sender || "",
+        country: request.country || ""
+      };
+      if (rawId) {
+        if (!/^[a-fA-F0-9]{10,32}$/.test(rawId)) {
+          return Promise.resolve({
+            ok: false,
+            sent: false,
+            error: "bad_thread",
+            message: tx("รหัสเธรดต้องเป็นตัวอักษร a–f และตัวเลข ความยาว 10–32 ตัว", "The thread id must be 10–32 letters a–f and digits")
+          });
+        }
+        payload.threadId = rawId;
+        payload.messageId = rawId;
+      }
+      return callRemote("draft", payload).then(function (res) {
+        if (!res || res.sent === true) {
+          return { ok: false, sent: false, error: "refused_sent", message: tx("ปฏิเสธผลลัพธ์ที่บอกว่าส่งอีเมลแล้ว", "Refused a result that claimed mail was sent") };
+        }
+        return res;
+      });
+    }
   };
 
-  var state = { countries: [], rules: [], dirty: false, source: "seed" };
+  var state = { countries: [], rules: [], dirty: false, source: "seed", sheetEmail: "" };
   var modalReturn = null;
   var toastTimer = 0;
 
@@ -581,6 +785,24 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     var ok = {};
     state.countries.forEach(function (c) { if (c.selectable && !c.comingSoon) ok[c.code] = true; });
     rule.countries = rule.countries.filter(function (code) { return !!ok[code]; });
+  }
+  function ensureCountryCodes(rules) {
+    (rules || []).forEach(function (rule) {
+      (rule.countries || []).forEach(function (code) {
+        if (findCountry(code)) return;
+        var c = sanitizeCountry({
+          code: code,
+          flag: "🏳️",
+          nameTh: code,
+          nameEn: code,
+          mailbox: "finance." + String(code).toLowerCase() + "@",
+          selectable: true,
+          comingSoon: false,
+          custom: true
+        });
+        if (c) state.countries.push(c);
+      });
+    });
   }
   function snapshot(kind) {
     var doc = {
@@ -753,7 +975,9 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
         var draft = btn("btn draft", "", { "data-act": "draft", "data-email": email.id });
         draft.appendChild(document.createTextNode(tx("✉ ดราฟอีเมล", "✉ Draft email")));
         draft.appendChild(el("span", { class: "flag", text: lang }));
-        draft.setAttribute("aria-label", tx("ดูตัวอย่างดราฟอีเมล ภาษา ", "Preview email draft, language ") + lang);
+        draft.setAttribute("aria-label", (isRemote()
+          ? tx("สร้างแบบร่างใน Gmail ของคุณ ภาษา ", "Create a Gmail draft in your account, language ")
+          : tx("ดูตัวอย่างดราฟอีเมล ภาษา ", "Preview email draft, language ")) + lang);
         act.appendChild(document.createTextNode(" "));
         act.appendChild(draft);
       }
@@ -763,12 +987,33 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     document.getElementById("matchCount").textContent = tx("ตรงกฎ ", "Matched ") + matched + " / " + SAMPLE_EMAILS.length;
   }
 
+  function refreshRemoteStatus() {
+    var node = document.getElementById("remoteStatus");
+    if (!node || !isRemote()) return;
+    if (state.source === "sheet" && state.sheetEmail) {
+      node.textContent = tx("เชื่อมต่อแล้วในชื่อ ", "Connected as ") + state.sheetEmail + tx(" · ปุ่มดราฟใช้กฎบนชีต", " · the draft button uses the sheet rules");
+      return;
+    }
+    if (state.source === "cache") {
+      node.textContent = tx("แสดงกฎที่แคชจากชีตไว้ในเบราว์เซอร์นี้", "Showing rules cached from the sheet in this browser") + (state.sheetEmail ? " (" + state.sheetEmail + ")" : "") + tx(" · กดเชื่อมต่อเพื่อดึงล่าสุด", " · press Connect for the latest");
+      return;
+    }
+    node.textContent = tx("โหมดทีม: ปุ่มดราฟใช้กฎบน Google Sheet ไม่ใช่กฎที่ยังไม่บันทึกบนจอ กดเชื่อมต่อเพื่อดึงกฎ หน้าต่าง Google จะขอให้ยืนยันสิทธิ์", "Team mode: the draft button uses the Google Sheet rules, not unsaved edits on screen. Press Connect to load them. A Google window asks you to confirm access.");
+  }
   function markDirty() {
     var elState = document.getElementById("saveState");
-    elState.className = state.dirty ? "warn" : (state.source === "saved" ? "ok" : "");
-    if (state.dirty) elState.textContent = tx("ยังไม่บันทึก — ตารางตัวอย่างอัปเดตตามกฎที่กำลังแก้", "Unsaved — the sample table is using the rules on screen");
+    var remote = isRemote();
+    elState.className = state.dirty ? "warn" : (state.source === "saved" || state.source === "sheet" ? "ok" : "");
+    if (state.dirty) {
+      elState.textContent = remote
+        ? tx("ยังไม่บันทึกลงชีต — ตารางใช้กฎบนจอ แต่ปุ่มดราฟใช้กฎบนชีต", "Unsaved to the sheet — the table uses the rules on screen, but the draft button uses the sheet")
+        : tx("ยังไม่บันทึก — ตารางตัวอย่างอัปเดตตามกฎที่กำลังแก้", "Unsaved — the sample table is using the rules on screen");
+    } else if (state.source === "sheet") elState.textContent = tx("บันทึกกฎบนชีตแล้ว", "Rules saved on the sheet") + (state.sheetEmail ? " · " + state.sheetEmail : "");
+    else if (state.source === "cache") elState.textContent = tx("แสดงกฎที่แคชจากชีต — กดเชื่อมต่อเพื่อดึงล่าสุด", "Showing rules cached from the sheet — press Connect for the latest");
     else if (state.source === "saved") elState.textContent = tx("บันทึกในเบราว์เซอร์นี้แล้ว", "Saved in this browser");
+    else if (remote) elState.textContent = tx("กำลังแสดงกฎตัวอย่าง — กดเชื่อมต่อเพื่อดึงกฎของทีม หรือกดบันทึกเพื่อเขียนลงชีต", "Showing sample rules — press Connect to load the team rules, or Save to write them to the sheet");
     else elState.textContent = tx("กำลังแสดงกฎตัวอย่าง — กดบันทึกเพื่อเก็บในเบราว์เซอร์นี้", "Showing sample rules — press Save to keep them in this browser");
+    refreshRemoteStatus();
   }
   function toast(message) {
     var node = document.getElementById("toast");
@@ -815,8 +1060,55 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   }
 
   function openDraftModal(request, result) {
-    if (!result || result.sent) {
+    if (!result || result.sent === true) {
       toast(tx("ยกเลิก: หน้านี้ไม่ส่งอีเมล", "Cancelled: this page does not send email"));
+      return;
+    }
+    var close = btn("btn primary", tx("ปิด", "Close"));
+    close.addEventListener("click", closeModal);
+    if (result.ok === false || result.error) {
+      var failed = el("div");
+      var failLead = el("div", { class: "lead" });
+      failLead.appendChild(el("div", { class: "en-line", text: "Nothing was sent." }));
+      failLead.appendChild(el("div", { class: "th-line", text: result.message || tx("ไม่ได้สร้างแบบร่าง และไม่ได้ส่งอีเมล", "No draft was created, and nothing was sent") }));
+      failed.appendChild(failLead);
+      failed.appendChild(el("p", { class: "disc", text: tx("ไม่มีอีเมลถูกส่งออกจากปุ่มนี้", "This button never sends mail") }));
+      openModal(tx("ไม่ได้สร้างแบบร่าง", "No draft created"), failed, [close], close);
+      return;
+    }
+    if (result.mode === "gmail" && result.draft) {
+      var done = el("div");
+      var doneLead = el("div", { class: "lead" });
+      doneLead.appendChild(el("div", { class: "en-line", text: result.notice || "Created a Gmail draft in the signed-in clicker's account, not sent." }));
+      doneLead.appendChild(el("div", { class: "th-line", text: "สร้างแบบร่างใน Gmail ของบัญชีที่กดแล้ว และยังไม่ส่ง" }));
+      done.appendChild(doneLead);
+      var meta = el("dl", { class: "kv" });
+      function grow(dt, dd) {
+        meta.appendChild(el("dt", { text: dt }));
+        meta.appendChild(el("dd", { text: dd }));
+      }
+      if (result.draft.ruleName) grow(tx("กฎ", "Rule"), result.draft.ruleName);
+      if (result.email) grow(tx("กล่องของ", "Mailbox of"), result.email);
+      if (result.draft.language) grow(tx("ภาษา", "Language"), result.draft.language);
+      if (result.draft.adapter) grow(tx("วิธีแต่งข้อความ", "Wording"), result.draft.adapter);
+      done.appendChild(meta);
+      if (result.draft.warning) done.appendChild(el("p", { class: "disc", text: result.draft.warning }));
+      done.appendChild(el("div", { class: "fld", text: tx("ข้อความในแบบร่าง", "Draft text") }));
+      done.appendChild(el("pre", { class: "template", text: result.draft.body || "" }));
+      var actions = [close];
+      if (result.draft.url && /^https:\/\/mail\.google\.com\/mail\//.test(result.draft.url)) {
+        var link = el("a", {
+          class: "btn primary",
+          href: result.draft.url,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          text: tx("เปิดแบบร่างใน Gmail", "Open the draft in Gmail")
+        });
+        close.className = "btn";
+        actions = [close, link];
+      }
+      openModal(tx("สร้างแบบร่างแล้ว", "Draft created"), done, actions, actions[actions.length - 1]);
+      toast(tx("สร้างแบบร่างแล้ว — ยังไม่ส่ง", "Draft created — not sent"));
       return;
     }
     var body = el("div");
@@ -839,9 +1131,9 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     body.appendChild(el("div", { class: "fld", text: tx("ข้อความต้นแบบ", "Template text") }));
     body.appendChild(el("pre", { class: "template", text: request.template || tx("(ยังไม่มีข้อความต้นแบบ)", "(no template yet)") }));
     body.appendChild(el("p", { class: "disc", text: tx("ไม่ได้เชื่อมต่อ Gmail · ไม่มีการส่งอีเมล", "Gmail is not connected · no email is sent") }));
-    var close = btn("btn primary", tx("ปิดตัวอย่าง", "Close preview"));
-    close.addEventListener("click", closeModal);
-    openModal(tx("ตัวอย่างดราฟอีเมล", "Draft email preview"), body, [close], close);
+    var previewClose = btn("btn primary", tx("ปิดตัวอย่าง", "Close preview"));
+    previewClose.addEventListener("click", closeModal);
+    openModal(tx("ตัวอย่างดราฟอีเมล", "Draft email preview"), body, [previewClose], previewClose);
     toast(tx("แสดงตัวอย่างเท่านั้น — ไม่ได้ส่งอีเมล", "Preview only — nothing was sent"));
   }
 
@@ -852,6 +1144,8 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     var request = {
       emailId: email.id,
       subject: draftSubject(email.subject),
+      originalSubject: email.subject,
+      incomingBody: email.body,
       template: match.rule.template || "",
       language: resolveLanguage(match.rule, email),
       languageMode: match.rule.language,
@@ -863,7 +1157,11 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
       keyword: match.keyword,
       sender: email.sender
     };
-    DraftPort.createDraft(request).then(function (res) { openDraftModal(request, res); });
+    DraftPort.createDraft(request).then(function (res) {
+      openDraftModal(request, res);
+    }, function (err) {
+      openDraftModal(request, err && err.ok === false ? err : { ok: false, sent: false, message: explainRemoteError(err) });
+    });
   }
 
   function openCountryDialog(ruleId) {
@@ -1061,14 +1359,45 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   document.getElementById("saveBtn").addEventListener("click", function () {
     var button = document.getElementById("saveBtn");
     button.disabled = true;
-    StoragePort.save(snapshot("save")).then(function () {
+    var remote = isRemote();
+    StoragePort.save(snapshot("save")).then(function (res) {
       state.dirty = false;
-      state.source = "saved";
+      state.source = remote ? "sheet" : "saved";
+      if (res && res.email) state.sheetEmail = res.email;
       markDirty();
-      toast(tx("บันทึกกฎในเบราว์เซอร์นี้แล้ว", "Rules saved in this browser"));
-    }, function () {
+      toast(remote ? tx("บันทึกกฎลงชีตแล้ว", "Rules saved to the sheet") : tx("บันทึกกฎในเบราว์เซอร์นี้แล้ว", "Rules saved in this browser"));
+    }, function (err) {
       document.getElementById("saveState").className = "err";
-      document.getElementById("saveState").textContent = tx("บันทึกไม่สำเร็จ ลองส่งออก JSON แทน", "Could not save. Try exporting JSON instead.");
+      document.getElementById("saveState").textContent = remote
+        ? explainRemoteError(err.result || err)
+        : tx("บันทึกไม่สำเร็จ ลองส่งออก JSON แทน", "Could not save. Try exporting JSON instead.");
+    }).then(function () { button.disabled = false; });
+  });
+
+  var connectBtn = document.getElementById("connectBtn");
+  if (connectBtn) connectBtn.addEventListener("click", function () {
+    var button = connectBtn;
+    button.disabled = true;
+    callRemote("list", {}).then(function (res) {
+      if (!res || res.ok === false || res.sent === true) {
+        var err = new Error((res && (res.message || res.error)) || "list_failed");
+        err.result = res;
+        throw err;
+      }
+      if (res.email) state.sheetEmail = res.email;
+      try {
+        localStorage.setItem(SHEET_CACHE_KEY, JSON.stringify({
+          rules: res.rules || [],
+          countries: state.countries,
+          email: res.email || "",
+          savedAt: new Date().toISOString()
+        }));
+      } catch (e) {}
+      applyRules(res.rules || [], state.countries, "sheet");
+      toast(tx("ดึงกฎจากชีตแล้ว", "Loaded rules from the sheet"));
+    }, function (err) {
+      document.getElementById("saveState").className = "err";
+      document.getElementById("saveState").textContent = explainRemoteError(err.result || err);
     }).then(function () { button.disabled = false; });
   });
 
@@ -1117,11 +1446,12 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
           renderCountryLegend();
           renderRules();
           renderTable();
-          StoragePort.save(snapshot("save")).then(function () {
+          StoragePort.save(snapshot("save")).then(function (res) {
             state.dirty = false;
-            state.source = "saved";
+            state.source = isRemote() ? "sheet" : "saved";
+            if (res && res.email) state.sheetEmail = res.email;
             markDirty();
-            toast(tx("นำเข้าและบันทึกแล้ว", "Imported and saved"));
+            toast(isRemote() ? tx("นำเข้าและบันทึกลงชีตแล้ว", "Imported and saved to the sheet") : tx("นำเข้าและบันทึกแล้ว", "Imported and saved"));
           }, function () {
             markDirty();
             toast(tx("นำเข้าบนหน้านี้แล้ว แต่ยังบันทึกไม่ได้", "Imported on this page, but saving failed"));
@@ -1138,6 +1468,7 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
   function applyRules(rules, countries, source) {
     state.countries = mergeCountries(countries);
     state.rules = (rules || []).map(normalizeRule).filter(Boolean);
+    ensureCountryCodes(state.rules);
     state.rules.forEach(scrubRuleCountries);
     state.source = source;
     state.dirty = false;
@@ -1147,6 +1478,7 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     markDirty();
   }
   function boot() {
+    if (isRemote()) document.body.classList.add("remote");
     StoragePort.load().then(function (doc) {
       if (!doc) { applyRules(seedRules(), null, "seed"); return; }
       if (typeof doc !== "object" || !Array.isArray(doc.rules)) {
@@ -1154,7 +1486,8 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
         toast(tx("อ่านกฎที่บันทึกไว้ไม่สำเร็จ แสดงกฎตัวอย่าง", "Could not read saved rules. Showing the sample rules."));
         return;
       }
-      applyRules(doc.rules, doc.countries, "saved");
+      if (doc.email) state.sheetEmail = String(doc.email);
+      applyRules(doc.rules, doc.countries, isRemote() ? "cache" : "saved");
     }, function () {
       applyRules(seedRules(), null, "seed");
       toast(tx("อ่านกฎที่บันทึกไว้ไม่สำเร็จ แสดงกฎตัวอย่าง", "Could not read saved rules. Showing the sample rules."));
@@ -1181,6 +1514,8 @@ pre.template{white-space:pre-wrap;word-break:break-word;background:var(--soft);b
     resolveLanguage: resolveLanguage,
     splitKeywords: splitKeywords,
     sampleEmails: SAMPLE_EMAILS,
+    webAppUrl: webAppUrl,
+    isRemote: isRemote,
     ports: { storage: StoragePort, draft: DraftPort },
     getState: function () { return state; }
   };
