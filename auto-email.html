@@ -424,6 +424,7 @@ body.remote .only-local{display:none}
     if (code === "popup_blocked") return tx("เบราว์เซอร์บล็อกหน้าต่าง ให้กดปุ่มอีกครั้งแล้วอนุญาตป๊อปอัป", "The browser blocked the window. Press the button again and allow pop-ups.");
     if (code === "timeout") return tx("หมดเวลายืนยันในหน้าต่าง Google จึงไม่ได้สร้างหรือส่งอีเมล", "The Google window timed out, so nothing was created or sent");
     if (code === "busy") return tx("มีคำขอค้างอยู่ ปิดหน้าต่าง Google ที่เปิดอยู่ก่อน", "A request is still open. Close the Google window first.");
+    if (code === "too_big") return tx("คำขอใหญ่เกินกว่าจะส่งผ่านหน้าต่างยืนยัน จึงไม่ได้สร้างหรือส่งอีเมล", "The request is too large for the confirm window, so nothing was created or sent");
     if (err.message) return String(err.message);
     return tx("ทำไม่สำเร็จ และไม่ได้ส่งอีเมล", "That did not work, and nothing was sent");
   }
@@ -470,6 +471,18 @@ body.remote .only-local{display:none}
         parent: location.origin,
         returnUrl: bridgeReturnUrl()
       };
+      var packed = "";
+      try { packed = encodeRequestParam(request); }
+      catch (err) { packed = ""; }
+      if (!packed || packed.length > 12000) {
+        reject({
+          ok: false,
+          sent: false,
+          error: "too_big",
+          message: tx("คำขอใหญ่เกินกว่าจะส่งผ่านหน้าต่างยืนยัน จึงไม่ได้สร้างหรือส่งอีเมล", "The request is too large for the confirm window, so nothing was created or sent")
+        });
+        return;
+      }
       var popup = null;
       try { popup = window.open("about:blank", "hhAutoEmail"); } catch (e) { popup = null; }
       if (!popup) {
@@ -483,16 +496,15 @@ body.remote .only-local{display:none}
         try { popup.close(); } catch (e2) {}
         reject({ ok: false, sent: false, error: "timeout", message: explainRemoteError({ error: "timeout" }) });
       }, 180000);
-      try { popup.name = JSON.stringify(request); }
-      catch (err) {
-        bridgePending = null;
-        clearTimeout(bridgeTimer);
-        try { popup.close(); } catch (e3) {}
-        reject({ ok: false, sent: false, error: "popup_blocked", message: explainRemoteError({ error: "popup_blocked" }) });
-        return;
-      }
-      popup.location.href = url + "?page=bridge";
+      popup.location.href = url + "?page=bridge&req=" + encodeURIComponent(packed);
     });
+  }
+
+  function encodeRequestParam(request) {
+    var bytes = new TextEncoder().encode(JSON.stringify(request));
+    var bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
   }
 
   window.addEventListener("message", function (ev) {
@@ -608,9 +620,9 @@ body.remote .only-local{display:none}
       if (!isRemote()) return PreviewDraftAdapter.createDraft(request);
       var rawId = threadOverrideValue();
       var payload = {
-        originalSubject: request.originalSubject || "",
-        body: request.incomingBody || "",
-        sender: request.sender || "",
+        originalSubject: String(request.originalSubject || "").slice(0, 300),
+        body: String(request.incomingBody || "").slice(0, 1500),
+        sender: String(request.sender || "").slice(0, 200),
         country: request.country || ""
       };
       if (rawId) {

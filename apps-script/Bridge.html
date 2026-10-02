@@ -42,7 +42,8 @@
     go.disabled = true;
   }
 
-  try { request = JSON.parse(window.name || ""); }
+  var embedded = <?!= requestJson ?>;
+  try { request = JSON.parse(embedded || window.name || ""); }
   catch (err) { request = null; }
   document.getElementById("cancel").addEventListener("click", function () {
     if (!request || ALLOWED.indexOf(String(request.parent || "")) < 0) { window.close(); return; }

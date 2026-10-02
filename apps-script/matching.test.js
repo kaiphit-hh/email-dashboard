@@ -142,6 +142,17 @@ test("search text cannot inject Gmail operators", function () {
   assert.equal(m.isGmailId(""), false);
 });
 
+test("popup requests round-trip through base64url", function () {
+  const payload = {
+    source: "hh-auto-email",
+    op: "draft",
+    payload: { originalSubject: "ขอใบกำกับภาษี", country: "TH" }
+  };
+  const b64 = Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
+  assert.equal(m.decodeRequestParam(b64), JSON.stringify(payload));
+  assert.equal(m.decodeRequestParam("@@@"), "");
+});
+
 test("Apps Script source never sends mail", function () {
   const src = fs.readFileSync(path.join(__dirname, "Code.gs"), "utf8");
   const bridge = fs.readFileSync(path.join(__dirname, "Bridge.html"), "utf8");
@@ -149,6 +160,7 @@ test("Apps Script source never sends mail", function () {
   assert.equal(forbidden.test(src), false, "Code.gs contains a send call or GmailApp");
   assert.equal(forbidden.test(bridge), false, "Bridge.html contains a send call");
   assert.match(src, /Users\.Drafts\.create/);
+  assert.match(src, /decodeRequestParam/);
   assert.equal(src.includes("LLM_API_KEY") && src.includes("getProperty"), true);
   assert.equal(/sk-[A-Za-z0-9]{10,}/.test(src + bridge), false);
   const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "appsscript.json"), "utf8"));
@@ -161,6 +173,7 @@ test("Apps Script source never sends mail", function () {
   const page = fs.readFileSync(path.join(__dirname, "../auto-email.html"), "utf8");
   const bridgePage = fs.readFileSync(path.join(__dirname, "../auto-email-bridge.html"), "utf8");
   assert.match(page, /var WEB_APP_URL = "";/);
+  assert.match(page, /page=bridge&req=/);
   assert.match(page, /Would create a Gmail draft in the signed-in clicker's account, not sent\./);
   assert.equal(forbidden.test(page + bridgePage), false);
 });

@@ -10,8 +10,10 @@
  *
  * GitHub Pages cannot call this web app with fetch(): Google answers
  * with a login redirect and does not send CORS headers. auto-email.html
- * opens this script in a popup. Bridge.html runs the call as the user,
- * then postMessage's the result or redirects back to auto-email-bridge.html.
+ * opens this script in a popup. The request is a base64url query value
+ * because Chrome clears window.name on the cross-origin navigation.
+ * Bridge.html runs the call as the user, then postMessage's the result
+ * or redirects back to auto-email-bridge.html.
  */
 
 var MAX_RULES = 40;
@@ -21,8 +23,14 @@ function doGet(e) {
   if (page && page !== "bridge") {
     return jsonOut_({ ok: false, sent: false, error: "unknown_page" });
   }
+  var rawReq = e && e.parameter && e.parameter.req ? String(e.parameter.req) : "";
+  if (rawReq.length > 12000) {
+    return jsonOut_({ ok: false, sent: false, error: "too_big", message: "คำขอใหญ่เกินกว่าจะส่งผ่านหน้าต่างยืนยัน" });
+  }
+  var decoded = rawReq ? decodeRequestParam(rawReq) : "";
   var template = HtmlService.createTemplateFromFile("Bridge");
   template.allowedOriginsJson = JSON.stringify(allowedOrigins_());
+  template.requestJson = JSON.stringify(decoded).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   return template.evaluate()
     .setTitle("Auto Email")
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT);

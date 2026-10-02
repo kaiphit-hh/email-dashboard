@@ -165,6 +165,38 @@ function isGmailId(value) {
   return /^[a-fA-F0-9]{10,32}$/.test(String(value || ""));
 }
 
+/**
+ * base64url JSON, used because Chrome clears window.name on the way to
+ * script.google.com. Returns "" when the text is not valid UTF-8 JSON input.
+ */
+function decodeRequestParam(b64) {
+  var s = String(b64 || "").replace(/-/g, "+").replace(/_/g, "/");
+  if (!/^[A-Za-z0-9+/]*$/.test(s)) return "";
+  while (s.length % 4) s += "=";
+  var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  var bytes = [];
+  for (var i = 0; i < s.length; i += 4) {
+    var n = [0, 1, 2, 3].map(function (k) { return alphabet.indexOf(s.charAt(i + k)); });
+    if (n[0] < 0 || n[1] < 0) return "";
+    bytes.push((n[0] << 2) | (n[1] >> 4));
+    if (s.charAt(i + 2) !== "=" && n[2] >= 0) bytes.push(((n[1] & 15) << 4) | (n[2] >> 2));
+    if (s.charAt(i + 3) !== "=" && n[3] >= 0) bytes.push(((n[2] & 3) << 6) | n[3]);
+  }
+  var out = "";
+  for (var b = 0; b < bytes.length; ) {
+    var c = bytes[b];
+    if (c < 128) { out += String.fromCharCode(c); b += 1; }
+    else if (c >= 192 && c < 224 && b + 1 < bytes.length) {
+      out += String.fromCharCode(((c & 31) << 6) | (bytes[b + 1] & 63));
+      b += 2;
+    } else if (c >= 224 && c < 240 && b + 2 < bytes.length) {
+      out += String.fromCharCode(((c & 15) << 12) | ((bytes[b + 1] & 63) << 6) | (bytes[b + 2] & 63));
+      b += 3;
+    } else return "";
+  }
+  return out;
+}
+
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     RULE_HEADER: RULE_HEADER,
@@ -179,6 +211,7 @@ if (typeof module !== "undefined" && module.exports) {
     stripGenericGreeting: stripGenericGreeting,
     templateAdapt: templateAdapt,
     sanitizeSearchTerm: sanitizeSearchTerm,
-    isGmailId: isGmailId
+    isGmailId: isGmailId,
+    decodeRequestParam: decodeRequestParam
   };
 }
