@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Auto Email</title>
+</head>
+<body>
+<p id="msg">กำลังส่งผลกลับ…</p>
+<script>
+(function () {
+  var msg = document.getElementById("msg");
+  var raw = "";
+  var hash = location.hash.replace(/^#/, "");
+  if (hash.indexOf("hh=") === 0) raw = hash.slice(3);
+  else {
+    var q = new URLSearchParams(hash);
+    raw = q.get("hh") || "";
+  }
+  if (!raw) { msg.textContent = "ไม่มีผลลัพธ์"; return; }
+  var data;
+  try { data = JSON.parse(decodeURIComponent(raw)); }
+  catch (err) { msg.textContent = "อ่านผลลัพธ์ไม่สำเร็จ"; return; }
+  if (!data || data.source !== "hh-auto-email-result" || !data.id) {
+    msg.textContent = "ผลลัพธ์ไม่ถูกต้อง";
+    return;
+  }
+  try {
+    localStorage.setItem("hh_auto_email_bridge_result", JSON.stringify({ at: Date.now(), data: data }));
+  } catch (err) {
+    msg.textContent = "บันทึกผลกลับในเบราว์เซอร์ไม่สำเร็จ";
+    return;
+  }
+  msg.textContent = "เสร็จแล้ว หน้าต่างนี้จะปิด";
+  setTimeout(function () { window.close(); }, 300);
+})();
+</script>
+</body>
+</html>
