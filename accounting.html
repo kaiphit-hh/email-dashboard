@@ -217,7 +217,7 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 </div></div>
 <script>
 (function(){
-  var CFG={"ep": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "closed0": {}};
+  var CFG={"ep": "https://email-dashboard-refresh.hungryhub-acc.workers.dev", "closed0": {}};
   var EP=CFG.ep,MAXB=30,OFF=7*3600*1000;
   var rng='today',rday=null,RN={today:['วันนี้','today'],yesterday:['เมื่อวาน','yesterday'],'7d':['7 วันล่าสุด','last 7 days'],all:['ทั้งหมด','all']};
   function inRange(dk,nowK){return rng==='all'?true:rng==='today'?dk===nowK:rng==='yesterday'?dk===nowK-1:rng==='7d'?(dk<=nowK&&dk>=nowK-6):rng==='date'?dk===rday:dk===nowK}
@@ -325,7 +325,7 @@ tr[data-eff="un"] .v-man,tr[data-eff="man"] .v-un{display:none}
 </script>
 <script>
 (function(){
-  var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-10-15T08:02:04+07:00", "metaKey": "accounting_updated_at"};
+  var R={"endpoint": "https://email-dashboard-refresh.hungryhub-acc.workers.dev", "updatedAt": "2026-10-15T08:02:04+07:00", "metaKey": "accounting_updated_at"};
   var btn=document.getElementById('refreshBtn'),msg=document.getElementById('refreshMsg');
   if(!btn)return;
   var KEY='dash_refresh_until',SKEY='dash_refresh_start',COOL=60*1000,MAXWAIT=8*60*1000,timer=null,poll=null,busy=false,last=null;
