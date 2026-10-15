@@ -23,7 +23,7 @@ root.innerHTML="<div class=\"wrap greetrow\"><div><h1 class=\"greet\"><span clas
 
 
 (function(){
-  var R={"endpoint": "https://email-dashboard-refresh.kp-dash-2b71fe.workers.dev", "updatedAt": "2026-10-15T08:15:00+07:00", "metaKey": "updated_at"};
+  var R={"endpoint": "https://email-dashboard-refresh.hungryhub-acc.workers.dev", "updatedAt": "2026-10-15T08:15:00+07:00", "metaKey": "updated_at"};
   var btn=document.getElementById('refreshBtnD'),msg=document.getElementById('refreshMsgD');
   if(!btn)return;
   var KEY='dash_refresh_until',SKEY='dash_refresh_start',COOL=60*1000,MAXWAIT=8*60*1000,timer=null,poll=null,busy=false,last=null;
